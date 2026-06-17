@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>On The Run Fit — Pick Your Look</title>
+<meta name="description" content="Three website directions for On The Run Fit. Preview each and choose the one that feels most like Lindsey." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232A211C'/%3E%3Cpath d='M6 22 Q16 6 26 22' fill='none' stroke='%23D6346B' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='26' cy='22' r='2.6' fill='%23F0813C'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,800;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF4EC; --paper-2:#F6ECE0; --ink:#2A211C; --ink-70:rgba(42,33,28,.7); --ink-55:rgba(42,33,28,.62);
+    --rasp:#C42A5E; --amber:#F0813C; --line:#E7D8C9;
+    --serif:'Fraunces',Georgia,serif; --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);background:
+    radial-gradient(120% 80% at 100% 0,rgba(240,129,60,.08),transparent 55%),
+    radial-gradient(90% 70% at 0% 100%,rgba(214,52,107,.06),transparent 55%),var(--paper);
+    color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:1200px;margin:0 auto;padding:clamp(40px,7vh,90px) clamp(20px,5vw,56px)}
+  .eyebrow{font-weight:700;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rasp);
+    display:inline-flex;align-items:center;gap:.7em;margin-bottom:1.1rem}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--rasp)}
+  h1{font-family:var(--serif);font-weight:800;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.04;
+    letter-spacing:-.02em;max-width:18ch;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--rasp)}
+  .intro{color:var(--ink-70);font-size:1.12rem;margin-top:1.1rem;max-width:60ch}
+  .note-hand{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--rasp);display:inline-block;
+    transform:rotate(-1.5deg);margin-top:1.4rem}
+  .grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1.6rem;margin-top:clamp(34px,5vh,56px)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;
+    flex-direction:column;text-decoration:none;color:inherit;transition:transform .4s var(--ease),box-shadow .4s;
+    box-shadow:0 14px 34px -22px rgba(42,33,28,.4);flex:1 1 322px;max-width:364px}
+  .card:hover{transform:translateY(-5px);box-shadow:0 34px 60px -28px rgba(42,33,28,.45)}
+  .card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .shot{aspect-ratio:1440/900;overflow:hidden;border-bottom:1px solid var(--line);background:var(--paper-2);position:relative}
+  .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .5s var(--ease)}
+  .card:hover .shot img{transform:scale(1.03)}
+  .vtag{position:absolute;top:12px;left:12px;background:rgba(42,33,28,.86);color:#fff;font-weight:700;
+    font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:999px}
+  .body{padding:1.5rem 1.5rem 1.6rem;display:flex;flex-direction:column;flex:1}
+  .body h2{font-family:var(--serif);font-weight:600;font-size:1.4rem}
+  .vibe{color:var(--ink-70);font-size:.96rem;margin:.5rem 0 1rem;flex:1}
+  .chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.3rem}
+  .chips span{font-size:.72rem;font-weight:600;letter-spacing:.02em;color:var(--ink-55);
+    border:1px solid var(--line);border-radius:999px;padding:.25rem .65rem}
+  .open{display:inline-flex;align-items:center;gap:.5em;font-weight:700;color:var(--rasp);font-size:.98rem}
+  .open .arr{transition:transform .35s var(--ease)}
+  .card:hover .open .arr{transform:translateX(4px)}
+  .foot{margin-top:clamp(30px,5vh,52px);color:var(--ink-55);font-size:.95rem;max-width:64ch}
+  .foot b{color:var(--ink)}
+  @media(max-width:560px){.card{flex-basis:100%;max-width:460px}}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow">On The Run Fit · Website Preview</p>
+    <h1>Six directions. <em>Pick the one that feels most like you.</em></h1>
+    <p class="intro">Hi Lindsey! Here are six complete looks for your new site — same real photos, your real plans, and your own words in every one. Click any one to open the full live page, scroll around, and tell Anthoney which feels right. Mixing ideas between them is totally fair game too.</p>
+    <span class="note-hand">take your time — they're all yours 💕</span>
+
+    <div class="grid">
+      <a class="card" href="v1-classic.html">
+        <div class="shot"><span class="vtag">Option 1</span><img src="assets/img/thumbs/v1.webp" width="760" height="475" alt="Preview of the Classic version — bright and friendly." loading="lazy" /></div>
+        <div class="body">
+          <h2>Classic</h2>
+          <p class="vibe">The original look you liked — bright, friendly, and clean, with soft pink accents and approachable rounded cards. Warm and welcoming.</p>
+          <div class="chips"><span>Bright &amp; friendly</span><span>Rounded · pink</span><span>The one you liked</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="v2-journal.html">
+        <div class="shot"><span class="vtag">Option 2</span><img src="assets/img/thumbs/v2.webp" width="760" height="475" alt="Preview of the Journal version — warm editorial." loading="lazy" /></div>
+        <div class="body">
+          <h2>Journal</h2>
+          <p class="vibe">A warm, editorial "training journal" — elegant serif type on oat paper, hand-drawn marker accents, and taped photos of your real athletes. Personal and premium.</p>
+          <div class="chips"><span>Editorial · warm</span><span>Hand-drawn touches</span><span>Most distinctive</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="v3-cinematic.html">
+        <div class="shot"><span class="vtag">Option 3</span><img src="assets/img/thumbs/v3.webp" width="760" height="475" alt="Preview of the Cinematic version — bold and dark." loading="lazy" /></div>
+        <div class="body">
+          <h2>Cinematic</h2>
+          <p class="vibe">Bold and dramatic — big stadium-style type on a dark, full-bleed photo, with a sunset raspberry-to-amber glow. High-energy and unmistakably athletic.</p>
+          <div class="chips"><span>Bold · dark</span><span>Full-bleed photo</span><span>High energy</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="v4-rustic.html">
+        <div class="shot"><span class="vtag">Option 4</span><img src="assets/img/thumbs/v4.webp" width="760" height="475" alt="Preview of the Sanctuary version — elegant, airy, faith-forward." loading="lazy" /></div>
+        <div class="body">
+          <h2>Sanctuary</h2>
+          <p class="vibe">Calm, airy, and elegant — a modern "country bible study" feel with delicate gold lines, lots of white space, a refined serif, and Isaiah 40:31 at its heart. Faith-forward and understated.</p>
+          <div class="chips"><span>Airy · elegant</span><span>Gold lines</span><span>Faith-forward</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="v5-track.html">
+        <div class="shot"><span class="vtag">Option 5</span><img src="assets/img/thumbs/v5.webp" width="760" height="475" alt="Preview of the Track version — bold charcoal and hot pink." loading="lazy" /></div>
+        <div class="body">
+          <h2>Track</h2>
+          <p class="vibe">Fast and athletic — charcoal and black with sharp, electric hot pink, condensed track-style type, lane lines, and stopwatch splits. Built to look fast.</p>
+          <div class="chips"><span>Bold · athletic</span><span>Hot pink</span><span>Track energy</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="v6-refined.html">
+        <div class="shot"><span class="vtag">Option 6</span><img src="assets/img/thumbs/v6.webp" width="760" height="475" alt="Preview of the Refined version — elegant, warm, and secular." loading="lazy" /></div>
+        <div class="body">
+          <h2>Refined</h2>
+          <p class="vibe">The blend you described — Classic's warmth and friendly pink, elevated with an elegant serif, airy white space, and delicate hairline accents. Fully secular; all about coaching athletes.</p>
+          <div class="chips"><span>★ Your blend</span><span>Elegant · warm</span><span>Secular</span></div>
+          <span class="open">Open this version <span class="arr">→</span></span>
+        </div>
+      </a>
+    </div>
+
+    <p class="foot">All six are real, working pages — the application form, plans, programs, FAQ, and your athlete results are built into each. A couple of links (the self-guided program checkouts and the form's destination) just need their real URLs pasted in once you've picked. <b>Tell me which look you love and I'll make it the live site.</b></p>
+  </main>
+</body>
+</html>

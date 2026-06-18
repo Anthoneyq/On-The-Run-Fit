@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>On The Run Fit | 1-on-1 Running Coaching with Lindsey Q</title>
+<meta name="description" content="Personalized 1-on-1 running coaching with Lindsey Quebedeaux. For sprinters to marathoners, middle school to masters. Custom plans that get you faster and keep you healthy." />
+
+<!-- ============================================================
+     ON THE RUN FIT — V1 "CLASSIC" (the original look, photos wired in)
+     HTML + CSS + GSAP/ScrollTrigger + Lenis smooth scroll.
+     Motion degrades gracefully: if scripts are blocked, all content
+     stays fully visible. Honors prefers-reduced-motion.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#1A1419;          /* warm near-black */
+    --ink-soft:#5B545C;
+    --paper:#FFFFFF;
+    --cream:#FBF7F4;        /* warm editorial off-white */
+    --blush:#FBECF2;
+    --blush-2:#FCF5F8;
+    --accent:#D61F69;       /* refined raspberry — reads unisex, less candy */
+    --accent-2:#F0608F;     /* lighter raspberry for gradients */
+    --accent-dark:#A8124E;
+    --line:#ECE2E7;
+    --line-dark:#332A30;
+    --shadow:0 24px 60px -22px rgba(26,20,25,.30);
+    --shadow-sm:0 10px 30px -16px rgba(26,20,25,.26);
+    --shadow-pink:0 20px 46px -16px rgba(214,31,105,.42);
+    --radius:20px;
+    --maxw:1160px;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto !important}
+  .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+  .lenis.lenis-stopped{overflow:hidden}
+
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);background:var(--paper);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.display{font-family:'Schibsted Grotesk',sans-serif;line-height:1.04;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:104px 0;position:relative}
+  .eyebrow{
+    font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:.78rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);display:inline-block}
+  .section-head{max-width:680px;margin:0 auto 60px;text-align:center}
+  .section-head .eyebrow{justify-content:center}
+  .section-head h2{font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800}
+  .section-head p{color:var(--ink-soft);font-size:1.1rem;margin-top:16px}
+
+  /* buttons */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;position:relative;
+    font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.005em;
+    padding:16px 30px;border-radius:999px;cursor:pointer;border:none;
+    transition:transform .35s var(--ease),box-shadow .3s,background .3s,color .3s;
+    will-change:transform;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:var(--shadow-pink)}
+  .btn-primary:hover{background:var(--accent-dark)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:#fff}
+  .btn-light{background:#fff;color:var(--ink)}
+  .btn-light:hover{box-shadow:var(--shadow)}
+  .btn .arrow{transition:transform .35s var(--ease)}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:120}
+
+  /* ---------- GRAIN ---------- */
+  .grain{position:fixed;inset:0;z-index:115;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ---------- PRELOADER ---------- */
+  .loader{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;
+    align-items:center;justify-content:center;flex-direction:column;gap:18px}
+  .loader.hide{pointer-events:none}
+  .loader .mark{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;color:#fff;
+    font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;overflow:hidden}
+  .loader .mark span{display:inline-block}
+  .loader .mark em{color:var(--accent);font-style:normal}
+  .loader .bar{width:min(240px,52vw);height:3px;background:rgba(255,255,255,.18);border-radius:9px;overflow:hidden}
+  .loader .bar i{display:block;height:100%;width:0;background:var(--accent)}
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  .cursor-dot,.cursor-ring{position:fixed;top:0;left:0;z-index:150;pointer-events:none;border-radius:50%;
+    transform:translate(-50%,-50%);mix-blend-mode:difference}
+  .cursor-dot{width:7px;height:7px;background:#fff}
+  .cursor-ring{width:38px;height:38px;border:1.5px solid #fff;transition:width .25s,height .25s,background .25s,opacity .25s}
+  body.cursor-hover .cursor-ring{width:64px;height:64px;background:rgba(255,255,255,.12)}
+  @media (hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+  /* ---------- HEADER ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:90;transition:transform .4s var(--ease),background .4s,backdrop-filter .4s,box-shadow .4s}
+  header.scrolled{background:rgba(255,255,255,.86);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+  header.hide{transform:translateY(-100%)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:1.28rem;letter-spacing:-.02em}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;align-items:center;gap:32px}
+  .nav-links a{font-weight:600;font-size:.96rem;color:var(--ink-soft);transition:color .15s;position:relative}
+  .nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:100%;bottom:-5px;height:2px;background:var(--accent);transition:right .3s var(--ease)}
+  .nav-links a:not(.nav-cta):hover{color:var(--ink)}
+  .nav-links a:not(.nav-cta):hover::after{right:0}
+  .nav-cta{padding:11px 22px;font-size:.92rem;color:#fff}
+  .menu-btn{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--ink)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;
+    background:radial-gradient(900px 520px at 82% -10%, rgba(214,31,105,.14), transparent 60%),
+      radial-gradient(700px 500px at 0% 110%, rgba(240,96,143,.10), transparent 55%),
+      linear-gradient(180deg,#fff 0%, var(--blush) 100%);
+    padding:158px 0 96px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero-title{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:800}
+  .hero-title .ln{display:block;overflow:hidden;padding-bottom:.04em}
+  .hero-title .ln>span{display:block}
+  .hero-title em{color:var(--accent);font-style:normal}
+  .hero p.lead{font-size:1.18rem;color:var(--ink-soft);margin:24px 0 32px;max-width:520px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-cta .micro{width:100%;font-size:.86rem;color:var(--ink-soft);margin-top:4px}
+  .hero-stats{display:flex;gap:28px;margin-top:42px;flex-wrap:wrap}
+  .stat .num{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:1.7rem}
+  .stat .lbl{font-size:.82rem;color:var(--ink-soft)}
+  .hero-photo{position:relative;border-radius:24px;min-height:500px;will-change:transform;
+    background:linear-gradient(160deg, rgba(214,31,105,.10), rgba(26,20,25,.34)),
+               url('assets/img/hero-run.webp') center 30%/cover;
+    box-shadow:var(--shadow);overflow:hidden;display:flex;align-items:flex-end;padding:26px}
+  .hero-photo .badge{background:rgba(255,255,255,.96);border-radius:14px;padding:14px 18px;
+    font-size:.9rem;color:var(--ink);box-shadow:var(--shadow)}
+  .hero-photo .badge strong{font-family:'Schibsted Grotesk',sans-serif;display:block;font-size:1.05rem}
+  .scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:.72rem;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .scroll-hint .line{width:1px;height:36px;background:var(--ink-soft);opacity:.5;overflow:hidden;position:relative}
+  .scroll-hint .line::after{content:"";position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--accent);animation:scrolldot 1.8s var(--ease) infinite}
+  @keyframes scrolldot{0%{top:-100%}60%,100%{top:100%}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{background:var(--ink);overflow:hidden;padding:30px 0;white-space:nowrap;position:relative}
+  .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--ink),transparent)}
+  .marquee::after{right:0;background:linear-gradient(270deg,var(--ink),transparent)}
+  .marquee-track{display:inline-flex;align-items:center;gap:0;will-change:transform}
+  .marquee-track span.word{font-family:'Schibsted Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(1.5rem,3.2vw,2.5rem);letter-spacing:-.01em;padding:0 .42em;
+    color:#FBF7F4}
+  .marquee-track span.word.fill{color:var(--accent)}
+  .marquee-track span.sep{color:var(--accent);font-size:clamp(1rem,2vw,1.5rem);opacity:.85;padding:0 .05em}
+
+  /* ---------- TRUST BAR ---------- */
+  .trust{background:var(--ink);color:#fff;padding:34px 0;border-top:1px solid #2a232f}
+  .trust-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;text-align:center}
+  .trust-item{flex:1;min-width:150px}
+  .trust-item .t{font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:1.5rem}
+  .trust-item .t span{color:var(--accent)}
+  .trust-item .d{font-size:.84rem;color:rgba(255,255,255,.66);margin-top:4px}
+
+  /* ---------- WHY ---------- */
+  .why{background:var(--blush-2)}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:10px}
+  .why-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;transition:transform .5s var(--ease),box-shadow .5s}
+  .why-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .why-card .ic{font-size:1.6rem;margin-bottom:14px}
+  .why-card h3{font-size:1.18rem;font-weight:700;margin-bottom:8px}
+  .why-card p{color:var(--ink-soft);font-size:.96rem}
+  .why-punch{text-align:center;max-width:760px;margin:52px auto 0;font-family:'Schibsted Grotesk',sans-serif;
+    font-weight:600;font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.4}
+  .why-punch em{color:var(--accent);font-style:normal}
+
+  /* ---------- STEPS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .step{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:36px 28px;transition:transform .5s var(--ease),box-shadow .5s}
+  .step:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .step .n{width:48px;height:48px;border-radius:12px;background:var(--blush);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Schibsted Grotesk',sans-serif;font-weight:800;color:var(--accent);font-size:1.2rem;margin-bottom:18px}
+  .step h3{font-size:1.25rem;font-weight:700;margin-bottom:10px}
+  .step p{color:var(--ink-soft);font-size:.97rem}
+
+  /* ---------- PLANS ---------- */
+  #plans{background:var(--blush)}
+  .value-anchor{max-width:760px;margin:0 auto 46px;text-align:center;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);padding:24px 28px;font-size:1.02rem;color:var(--ink-soft)}
+  .value-anchor strong{color:var(--ink)}
+  .plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:stretch;max-width:780px;margin:0 auto}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:36px 28px;display:flex;flex-direction:column;position:relative;
+    transition:transform .5s var(--ease),box-shadow .5s;transform-style:preserve-3d}
+  .plan:hover{box-shadow:var(--shadow)}
+  .plan.featured{border:1.5px solid var(--accent);box-shadow:var(--shadow-pink);overflow:hidden}
+  .plan.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .plan.featured .price{color:var(--accent)}
+  @media(min-width:901px){.plan.featured{transform:translateY(-10px)}}
+  .plan .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+    background:var(--accent);color:#fff;font-family:'Schibsted Grotesk',sans-serif;font-weight:700;
+    font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:999px}
+  .plan h3{font-size:1.32rem;font-weight:700}
+  .plan .price{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:2.6rem;margin:14px 0 0}
+  .plan .price small{font-size:.95rem;font-weight:500;color:var(--ink-soft)}
+  .plan .perday{font-size:.82rem;color:var(--accent);font-weight:600;margin:4px 0 12px}
+  .plan .who{color:var(--ink-soft);font-size:.93rem;min-height:44px;margin-bottom:18px}
+  .plan ul{list-style:none;margin:0 0 26px;display:flex;flex-direction:column;gap:11px}
+  .plan li{position:relative;padding-left:28px;font-size:.95rem;color:var(--ink)}
+  .plan li.lead-in{font-weight:700;padding-left:0;color:var(--ink-soft);font-size:.86rem;text-transform:uppercase;letter-spacing:.04em}
+  .plan li.lead-in::before{display:none}
+  .plan li::before{content:"";position:absolute;left:0;top:6px;width:17px;height:17px;border-radius:50%;background:var(--accent);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/12px no-repeat;
+            mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/12px no-repeat}
+  .plan .btn{margin-top:auto;width:100%;justify-content:center}
+  .plan-extra{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px}
+  .mini{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:transform .5s var(--ease),box-shadow .5s}
+  .mini:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .mini h4{font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:1.05rem}
+  .mini .p{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:1.4rem;margin:6px 0 4px}
+  .mini .p small{font-size:.85rem;font-weight:500;color:var(--ink-soft)}
+  .mini p{font-size:.9rem;color:var(--ink-soft)}
+  .plans-note{text-align:center;color:var(--ink-soft);font-size:.9rem;margin-top:30px}
+
+  /* ---------- GUARANTEE ---------- */
+  .guarantee{background:var(--ink);color:#fff}
+  .guar-inner{display:flex;align-items:center;gap:30px;max-width:880px;margin:0 auto;
+    background:#211b27;border:1px solid #332a3b;border-radius:24px;padding:40px 42px}
+  .guar-badge{flex:none;width:84px;height:84px;border-radius:50%;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:var(--shadow-pink)}
+  .guar-inner h3{font-size:1.5rem;font-weight:800;margin-bottom:8px}
+  .guar-inner p{color:rgba(255,255,255,.78)}
+
+  /* ---------- PROGRAMS ---------- */
+  .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .prog{border-radius:var(--radius);padding:40px;color:#fff;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;min-height:250px;transition:transform .5s var(--ease)}
+  .prog:hover{transform:translateY(-6px)}
+  .prog.p1{background:linear-gradient(135deg,#221b28,#3a3243)}
+  .prog.p2{background:linear-gradient(135deg,var(--accent-dark),var(--accent-2))}
+  .prog.wide{grid-column:1/-1;background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
+  .prog h3{font-size:1.6rem;font-weight:800;margin-bottom:10px}
+  .prog p{opacity:.92;margin-bottom:22px;max-width:520px}
+  .prog .btn{align-self:flex-start}
+  .prog .tiers{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+  .prog .tiers span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;padding:6px 14px;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:.85rem}
+
+  /* ---------- ABOUT ---------- */
+  #about{background:var(--blush-2)}
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+  .about-photo{border-radius:24px;min-height:460px;box-shadow:var(--shadow);overflow:hidden;
+    background:url('assets/img/coach-portrait.webp') center 22%/cover;position:relative}
+  .about-grid h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;margin-bottom:8px}
+  .about-grid .role{color:var(--accent);font-family:'Schibsted Grotesk',sans-serif;font-weight:600;margin-bottom:18px}
+  .about-grid p{color:var(--ink-soft);margin-bottom:14px}
+  .prs{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+  .pr{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;text-align:center}
+  .pr .v{font-family:'Schibsted Grotesk',sans-serif;font-weight:800;font-size:1.2rem}
+  .pr .k{font-size:.78rem;color:var(--ink-soft)}
+  .pr.hl{background:var(--accent);border-color:var(--accent);box-shadow:var(--shadow-pink)}
+  .pr.hl .v{color:#fff}
+  .pr.hl .k{color:rgba(255,255,255,.85)}
+
+  /* ---------- RESULTS ---------- */
+  #results{background:var(--ink);color:#fff}
+  #results .section-head h2{color:#fff}
+  #results .section-head p{color:rgba(255,255,255,.7)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:#211b27;border:1px solid #332a3b;border-radius:var(--radius);padding:30px;transition:transform .5s var(--ease)}
+  .quote:hover{transform:translateY(-6px)}
+  .quote .qphoto{width:100%;aspect-ratio:1/1;border-radius:14px;object-fit:cover;margin-bottom:18px}
+  .quote .stars{color:var(--accent);letter-spacing:3px;margin-bottom:14px}
+  .quote p{font-size:1rem;color:#efeaf0}
+  .quote .by{margin-top:18px;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:.95rem}
+  .quote .by span{display:block;color:rgba(255,255,255,.55);font-weight:400;font-size:.85rem}
+
+  /* ---------- FAQ ---------- */
+  details{border-bottom:1px solid var(--line);padding:22px 4px}
+  details summary{font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:1.08rem;cursor:pointer;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+";color:var(--accent);font-size:1.6rem;font-weight:700;transition:transform .3s}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--ink-soft);margin-top:14px}
+  .faq{max-width:780px;margin:0 auto}
+
+  /* ---------- FORM ---------- */
+  #start{background:var(--blush)}
+  .form-card{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--line);
+    border-radius:24px;padding:46px;box-shadow:var(--shadow)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:.9rem;margin-bottom:7px}
+  .field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;
+    font-family:inherit;font-size:1rem;background:#fdfafb;transition:border .15s,box-shadow .15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(214,31,105,.14)}
+  .field textarea{resize:vertical;min-height:110px}
+  .req{color:var(--accent)}
+  .form-card .btn{width:100%;justify-content:center;margin-top:6px}
+  .form-fine{text-align:center;font-size:.82rem;color:var(--ink-soft);margin-top:14px}
+  .form-status{display:none;text-align:center;padding:14px;border-radius:12px;margin-bottom:16px;font-weight:600}
+  .form-status.show{display:block}
+  .form-status.ok{background:rgba(214,31,105,.1);color:var(--accent-dark)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 30px}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand .logo{color:#fff;font-size:1.4rem}
+  .foot-brand p{margin-top:10px;max-width:300px;font-size:.92rem}
+  .foot-links{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-col h5{font-family:'Schibsted Grotesk',sans-serif;color:#fff;font-size:.95rem;margin-bottom:14px}
+  .foot-col a{display:block;font-size:.92rem;margin-bottom:9px;transition:color .15s}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-bottom{border-top:1px solid #332a3b;margin-top:40px;padding-top:22px;font-size:.82rem;text-align:center}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .hero{padding:120px 0 70px}
+    .hero-grid,.about-grid{grid-template-columns:1fr}
+    .hero-photo{min-height:320px;order:-1}
+    .scroll-hint{display:none}
+    .about-photo{min-height:300px}
+    .steps,.plan-grid,.plan-extra,.quotes,.why-grid{grid-template-columns:1fr}
+    .prog-grid{grid-template-columns:1fr}
+    .guar-inner{flex-direction:column;text-align:center;padding:30px 24px}
+    .nav-links{display:none;position:absolute;top:74px;left:0;right:0;background:#fff;
+      flex-direction:column;gap:0;padding:10px 0;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 24px;width:100%}
+    .nav-links .nav-cta{margin:10px 24px;text-align:center}
+    .menu-btn{display:block}
+    section{padding:72px 0}
+    .form-card{padding:30px 22px}
+    .form-row{grid-template-columns:1fr}
+  }
+
+  /* small phones */
+  @media(max-width:560px){
+    .hero{padding:104px 0 56px}
+    .hero-title{font-size:clamp(2.1rem,8.5vw,3rem)}
+    .hero p.lead{font-size:1.05rem;margin:20px 0 28px}
+    .hero-cta{flex-direction:column;align-items:stretch}
+    .hero-cta .btn{width:100%;justify-content:center}
+    .hero-stats{gap:18px 26px;margin-top:30px}
+    .marquee::before,.marquee::after{width:40px}
+    .trust-row{gap:20px 16px}
+    .trust-item{flex:1 1 40%;min-width:0}
+    section{padding:58px 0}
+    .section-head{margin-bottom:40px}
+    .section-head p{font-size:1rem}
+    .value-anchor{padding:20px 22px;font-size:.98rem}
+    .plan{padding:30px 24px}
+    .guar-inner{padding:26px 20px}
+    .prog{padding:32px 26px}
+    .form-card{padding:24px 18px}
+    .field input,.field select,.field textarea{font-size:16px}
+  }
+
+  /* reduced motion: ensure everything visible & still */
+  @media (prefers-reduced-motion: reduce){
+    .scroll-hint .line::after{animation:none}
+    *{scroll-behavior:auto !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- progress + grain + cursor -->
+<div class="progress" id="progress"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- ===================== PRELOADER ===================== -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="mark"><span>On The Run <em>Fit</em></span></div>
+  <div class="bar"><i id="loaderBar"></i></div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo" data-cursor>On The Run <span>Fit</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#why" data-cursor>Why Coaching</a>
+      <a href="#plans" data-cursor>Plans</a>
+      <a href="#programs" data-cursor>Programs</a>
+      <a href="#about" data-cursor>About</a>
+      <a href="#results" data-cursor>Results</a>
+      <a href="#start" class="btn btn-primary nav-cta magnetic" data-cursor>Apply for Coaching</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow" data-reveal>1-on-1 Running Coaching · Online &amp; In-Person</p>
+      <h1 class="hero-title">
+        <span class="ln"><span>Your plan. Your goals.</span></span>
+        <span class="ln"><span><em>Your coach.</em></span></span>
+      </h1>
+      <p class="lead" data-reveal>Hey, I'm Lindsey! 💕 I coach every kind of runner — middle-school sprinters, masters marathoners, comeback moms, total first-timers — with a plan built just for YOU and a coach who actually cares how it goes. I'm still out there chasing PRs with my girls, so trust me, I get it. Let's go get your goal. 🔥</p>
+      <div class="hero-cta" data-reveal>
+        <a href="#start" class="btn btn-primary magnetic" data-cursor>Apply for Coaching <span class="arrow">→</span></a>
+        <a href="#plans" class="btn btn-ghost" data-cursor>See Plans &amp; Pricing</a>
+        <span class="micro">I keep my roster small so every athlete gets the real me — just a few spots open each month.</span>
+      </div>
+      <div class="hero-stats" data-reveal>
+        <div class="stat"><div class="num" data-count="48.7" data-suffix="K">48.7K</div><div class="lbl">Runners in the community</div></div>
+        <div class="stat"><div class="num">All distances</div><div class="lbl">Sprints · middle · long</div></div>
+        <div class="stat"><div class="num" data-count="14" data-suffix=" yrs">14 yrs</div><div class="lbl">Coaching since 2012</div></div>
+      </div>
+    </div>
+    <div class="hero-photo" data-parallax>
+      <div class="badge"><strong>Lindsey Quebedeaux</strong>Running Coach · 400m Masters Athlete</div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Scroll<div class="line"></div></div>
+</section>
+
+<!-- ===================== MARQUEE ===================== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span class="word">Sprints</span><span class="sep">✦</span><span class="word fill">Middle Distance</span><span class="sep">✦</span><span class="word">Long Distance</span><span class="sep">✦</span><span class="word">Cross Country</span><span class="sep">✦</span><span class="word fill">Track &amp; Road</span><span class="sep">✦</span><span class="word">First-Timers</span><span class="sep">✦</span><span class="word">Comeback Moms</span><span class="sep">✦</span><span class="word fill">Masters</span><span class="sep">✦</span><span class="word">Middle School</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ===================== TRUST BAR ===================== -->
+<div class="trust">
+  <div class="wrap trust-row">
+    <div class="trust-item"><div class="t">59<span>.74</span></div><div class="d">400m PR · her main event</div></div>
+    <div class="trust-item"><div class="t">27<span>.02</span></div><div class="d">200m PR</div></div>
+    <div class="trust-item"><div class="t">USATF<span> L1</span></div><div class="d">Level 1 Certified Coach</div></div>
+    <div class="trust-item"><div class="t">B.S.<span>.</span></div><div class="d">Exercise &amp; Sports Science · Texas State</div></div>
+  </div>
+</div>
+
+<!-- ===================== WHY ===================== -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Why A Coach</p>
+      <h2>You're not lazy. You're just doing it alone.</h2>
+      <p>I've been there — comebacks, busy seasons, all of it. Here's what trying to figure it out solo tends to cost us.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-reveal>
+        <div class="ic">🩹</div>
+        <h3>Injuries that steal seasons</h3>
+        <p>Random mileage and skipping strength work is the fastest way to the sidelines, friend. One injury can wipe out months of work — and the race you were so excited for.</p>
+      </div>
+      <div class="why-card" data-reveal>
+        <div class="ic">🔁</div>
+        <h3>A plan that isn't really yours</h3>
+        <p>A free plan off the internet doesn't know your body, your history, or your crazy schedule. So you work SO hard on the wrong things and wonder why the PRs stopped.</p>
+      </div>
+      <div class="why-card" data-reveal>
+        <div class="ic">💕</div>
+        <h3>Nobody cheering you on</h3>
+        <p>When motivation dips or life gets busy, there's no one tweaking the plan, keeping you accountable, or telling you you're ready. That's the lonely part — and where most of us quit.</p>
+      </div>
+    </div>
+    <p class="why-punch" data-reveal>You've already got the discipline to lace up. <em>What you're missing is a plan that's actually yours — and someone genuinely in your corner. That's where I come in.</em> 🔥</p>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How It Works</p>
+      <h2>Coaching built around your real life</h2>
+      <p>Three easy steps from wherever you are right now to the start line, ready and confident.</p>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal>
+        <div class="n">1</div>
+        <h3>Tell me about you</h3>
+        <p>Fill out the quick application below — your goals, your running history, your schedule. Then we'll connect and make sure we're the right fit. No pressure, promise!</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="n">2</div>
+        <h3>I build your plan</h3>
+        <p>I design training around your event, your body, and the days you can actually run — sprints to marathon — and drop it in an app you can check anytime.</p>
+      </div>
+      <div class="step" data-reveal>
+        <div class="n">3</div>
+        <h3>We chase it together</h3>
+        <p>Check-ins, real feedback, and tweaks whenever life happens. I'll keep you healthy, accountable, and improving — and I'll be cheering the whole way. 💕</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PLANS ===================== -->
+<section id="plans">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Coaching Plans</p>
+      <h2>Pick your level. Cancel anytime.</h2>
+      <p>This is real 1-on-1 coaching with me — not an app spitting out a template. Not sure which one fits? Just apply and I'll point you to the right one. Easy. 💕</p>
+    </div>
+
+    <div class="value-anchor" data-reveal>
+      Real talk: one PT visit runs <strong>$100–175</strong>, and a single injury can cost you a <strong>whole season</strong> you were so excited for. Coaching costs less than your weekly coffees — and it's the thing that actually keeps you healthy and running. Worth it, friend.
+    </div>
+
+    <div class="plan-grid">
+      <div class="plan featured tilt" data-reveal>
+        <div class="tag">Most Popular · Best Value</div>
+        <h3>Premium</h3>
+        <div class="price">$149<small>/mo</small></div>
+        <div class="perday">under $5/day — less than one coffee</div>
+        <p class="who">My favorite! Everything you need to PR — plus a coach who's truly in it with you.</p>
+        <ul>
+          <li>Personalized plan with paces set for your goal</li>
+          <li>Built for your event — sprints to marathon</li>
+          <li>Daily check-ins &amp; daily text access to me</li>
+          <li>Race strategy &amp; pacing for your goal race</li>
+          <li>Running drills &amp; strength recommendations</li>
+          <li>Mobility Course included <em>(a $70 value)</em></li>
+          <li>On The Run Recipes included</li>
+        </ul>
+        <a href="#start" class="btn btn-primary magnetic" data-cursor>Choose Premium <span class="arrow">→</span></a>
+      </div>
+
+      <div class="plan tilt" data-reveal>
+        <h3>Premium Pro+</h3>
+        <div class="price">$279<small>/mo</small></div>
+        <div class="perday">less than $70 per private session</div>
+        <p class="who">For my athletes chasing something BIG — you get all of me.</p>
+        <ul>
+          <li class="lead-in">Everything in Premium, plus:</li>
+          <li>Weekly 1-on-1 coaching calls (up to 45 min)</li>
+          <li>Video analysis of your running form</li>
+          <li>Daily reviews &amp; plan updates as needed</li>
+          <li>Personalized nutritional guidance</li>
+          <li>First priority on my schedule</li>
+        </ul>
+        <a href="#start" class="btn btn-ghost" data-cursor>Go Pro+</a>
+      </div>
+    </div>
+
+    <div class="plan-extra">
+      <div class="mini" data-reveal>
+        <h4>Strength &amp; Conditioning</h4>
+        <div class="p">$70<small>/mo</small></div>
+        <p>A standalone strength plan that builds power and keeps you durable — pairs with any running.</p>
+      </div>
+      <div class="mini" data-reveal>
+        <h4>In-Person Coaching</h4>
+        <div class="p">$400<small>/mo</small></div>
+        <p>My highest level of training. Daily-updated custom plans, unlimited text &amp; email, and in-person video form work. Local to New Braunfels, TX. <em>(3-month minimum recommended.)</em></p>
+      </div>
+      <div class="mini" data-reveal>
+        <h4>XC / Track Season Planning</h4>
+        <div class="p">$1,198<small>/season</small></div>
+        <p>For school coaches: a 2–3 hr video session to program your whole season, plus tools and unlimited email access all season. <a href="#start" style="color:var(--accent);font-weight:600">Inquire →</a></p>
+      </div>
+    </div>
+    <p class="plans-note">Every plan is real coaching with me, month to month — no long contracts, cancel anytime.</p>
+  </div>
+</section>
+
+<!-- ===================== GUARANTEE ===================== -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="guar-inner" data-reveal>
+      <div class="guar-badge">✓</div>
+      <div>
+        <h3>Here's my promise to you</h3>
+        <p>If the first two weeks aren't the right fit, just tell me and we'll make it right — no awkwardness, pinky promise. The only real risk is spending another season guessing on your own. Let's not do that. 💕</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROGRAMS ===================== -->
+<section id="programs">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Self-Guided Programs</p>
+      <h2>Not ready for coaching yet? Start here!</h2>
+      <p>A few ways to train on your own time — grab them and go at your own pace.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="prog wide" data-reveal>
+        <h3>12-Week 5K Programs</h3>
+        <div class="tiers"><span>Beginner</span><span>Intermediate</span><span>Advanced</span><span>+ Pace &amp; Terms Guide</span></div>
+        <p>Three structured 12-week plans that meet you exactly where you are and build you toward a stronger, faster 5K. Each comes with my Pace Groups &amp; Terms guide, so you always know exactly how to run every workout — no guesswork.</p>
+        <!-- WIRE: link to 5K program checkout -->
+        <a href="#start" class="btn btn-light" data-cursor>Get Your 5K Plan <span class="arrow">→</span></a>
+      </div>
+      <div class="prog p1" data-reveal>
+        <h3>Mobility Program</h3>
+        <p>A guided mobility routine that lowers injury risk and teaches you to move efficiently — so you run stronger for longer.</p>
+        <!-- WIRE: link to Mobility Program checkout -->
+        <a href="#start" class="btn btn-light" data-cursor>Buy Now</a>
+      </div>
+      <div class="prog p2" data-reveal>
+        <h3>On The Run Recipes</h3>
+        <p>An e-cookbook of runner-friendly breakfasts, salads, entrées, sides, and desserts to fuel your training.</p>
+        <!-- WIRE: link to e-book checkout -->
+        <a href="#start" class="btn btn-light" data-cursor>Buy the E-Book</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo" data-parallax></div>
+    <div>
+      <p class="eyebrow" data-reveal>Meet Your Coach</p>
+      <h2 data-reveal>Hi, I'm Lindsey! 👋</h2>
+      <div class="role" data-reveal>USATF Level 1 Certified Coach · 400m Masters Track Athlete · Boy Mom · Believer · Wife</div>
+      <p data-reveal>I've been a runner since junior high — all through high school, four years of track and cross country at Texas State, and now as a USA Masters track athlete still chasing PRs in my main event, the <em>400m</em>. So when I talk about the comeback grind, the busy-season juggle, and the days you feel SO far from where you were… I'm not guessing. I'm living it right alongside my athletes. 🔥</p>
+      <p data-reveal>I've got my B.S. in Exercise &amp; Sports Science with a minor in Sports Psychology — plus my <em>USATF Level 1 Track &amp; Field Coaching certification</em> — so I coach the body <em>and</em> the mind, backed by real science. By day I'm a high school PE teacher and track/XC coach, and I've coached it all — explosive sprinters, distance runners, nervous first-timers, comeback moms, masters athletes. Whether you're one of my girls out at the track or an online athlete across the country, you get the same me: real talk, structure, and someone who truly believes in you. 💕</p>
+      <div class="prs" data-reveal>
+        <div class="pr hl"><div class="v">59.74</div><div class="k">400m · main event</div></div>
+        <div class="pr"><div class="v">27.02</div><div class="k">200m</div></div>
+        <div class="pr"><div class="v">13.01</div><div class="k">100m</div></div>
+        <div class="pr"><div class="v">2:28</div><div class="k">800m</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Athlete Results</p>
+      <h2>My athletes say it best 💕</h2>
+      <p>From a joyful first half-marathon to a Boston qualifier — real On The Run Fit athletes, real finish lines.</p>
+    </div>
+    <div class="quotes">
+      <div class="quote" data-reveal>
+        <img class="qphoto" src="assets/img/client-katie.webp" width="399" height="400" loading="lazy" alt="Katie after qualifying for the Boston Marathon." />
+        <div class="stars">★★★★★</div>
+        <p>"I qualified for Boston — 3:12 at 7:19 pace! Lindsey built a plan that fit my life, paced every workout, and had my race strategy ready when it counted. I never would've believed that was in me. She did."</p>
+        <div class="by">Katie <span>Boston Qualifier · 26.2 in 3:12:01</span></div>
+      </div>
+      <div class="quote" data-reveal>
+        <img class="qphoto" src="assets/img/client-rebecca.webp" width="395" height="400" loading="lazy" alt="Rebecca beaming at her first half-marathon finish." />
+        <div class="stars">★★★★★</div>
+        <p>"13.1 miles?! Me?! A year ago I never could've imagined finishing a half, and I crossed that line beaming. Lindsey met me exactly where I was and cheered me through every mile. Best decision I ever made."</p>
+        <div class="by">Rebecca <span>Half Marathon Finisher</span></div>
+      </div>
+      <div class="quote" data-reveal>
+        <img class="qphoto" src="assets/img/client-mary.webp" width="403" height="600" loading="lazy" alt="Mary with her medal after her first 8K." />
+        <div class="stars">★★★★★</div>
+        <p>"I ran my very first 8K and placed 30th in my age group — at this stage of life! Lindsey believed I could do hard things before I did. She pushes masters runners AND keeps us healthy."</p>
+        <div class="by">Mary <span>First 8K · 55:01 · 30th in AG</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">FAQ</p>
+      <h2>Good questions</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Do I have to be an experienced runner?</summary>
+        <p>No. I coach everyone from first-time 5K runners and middle-school athletes to masters runners chasing lifetime PRs. Your plan is built for exactly where you are right now.</p></details>
+      <details><summary>I'm a sprinter / I run track — can you help?</summary>
+        <p>Absolutely! I coach the full range — sprints, middle distance, and long distance, from 100m all the way to the marathon. Your training is built specifically for your event, not some one-size-fits-all distance plan.</p></details>
+      <details><summary>How is the coaching delivered?</summary>
+        <p>Online athletes get their plan through a coaching app, plus check-ins and messaging based on your tier. In-person coaching is available locally in New Braunfels, TX.</p></details>
+      <details><summary>What if I get injured or my schedule blows up?</summary>
+        <p>That's exactly why you have a coach. I adjust your plan as life happens — travel, illness, busy weeks, or niggles — so you keep progressing safely instead of starting over.</p></details>
+      <details><summary>Is it worth it if I could find a free plan online?</summary>
+        <p>I get the question! But a free plan can't see your body, your history, or your crazy week — so you end up working SO hard on the wrong things. Coaching is the difference between just running and actually training toward something. And honestly? It costs less a day than your coffee. 💕</p></details>
+      <details><summary>Which plan should I choose?</summary>
+        <p>If you're not sure, just apply below and I'll help you figure it out! I'll look at your goals and point you to the plan that fits your life and your budget — zero pressure.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FORM ===================== -->
+<section id="start">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Start Here</p>
+      <h2>Let's do this together 🔥</h2>
+      <p>Tell me about your running and your goals — I read every single application myself and I'll personally reply with the plan that's right for you. Spots are limited and I can't wait to meet you!</p>
+    </div>
+
+    <div class="form-card" data-reveal>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+      <!-- WIRE: paste your Formspree URL or GHL webhook into FORM_ENDPOINT in the script below.
+           Until then the form opens a pre-filled email to ontherunfit@gmail.com so it's never a dead end. -->
+      <form id="applyForm" novalidate>
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></div>
+        <div class="form-row">
+          <div class="field"><label>First Name <span class="req">*</span></label><input type="text" name="first_name" required /></div>
+          <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" name="last_name" required /></div>
+        </div>
+        <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="email" required /></div>
+        <div class="form-row">
+          <div class="field"><label>What do you run? <span class="req">*</span></label>
+            <select name="event" required>
+              <option value="" disabled selected>Select…</option>
+              <option>Sprints</option>
+              <option>Middle distance</option>
+              <option>Long distance / road races</option>
+              <option>Cross country</option>
+              <option>New to running / not sure</option>
+            </select></div>
+          <div class="field"><label>Plan you're interested in <span class="req">*</span></label>
+            <select name="plan_interest" required>
+              <option value="" disabled selected>Select…</option>
+              <option>Premium – $149/mo</option>
+              <option>Premium Pro+ – $279/mo</option>
+              <option>Strength &amp; Conditioning – $70/mo</option>
+              <option>In-Person – $400/mo</option>
+              <option>XC/Track Team Planning</option>
+              <option>12-Week 5K Program (self-guided)</option>
+              <option>Not sure — help me choose</option>
+            </select></div>
+        </div>
+        <div class="field"><label>Your Goals <span class="req">*</span></label>
+          <textarea name="goals" placeholder="e.g. Break 25:00 in the 5K, run my first marathon in the fall, drop my 200 time, stay injury-free…" required></textarea></div>
+        <div class="field"><label>Anything else I should know?</label>
+          <textarea name="extra" placeholder="Running history, injuries, weekly availability, target race date…"></textarea></div>
+        <button type="submit" class="btn btn-primary magnetic" data-cursor>Send It — Let's Chat! <span class="arrow">→</span></button>
+        <p class="form-fine">I read every application myself and reply within a couple of days. Promise. 💕</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <div class="logo">On The Run <span style="color:var(--accent)">Fit</span></div>
+      <p>1-on-1 running coaching for performance and injury prevention. Sprinters to marathoners, middle school to masters. Based in New Braunfels, Texas.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col"><h5>Explore</h5>
+        <a href="#why" data-cursor>Why Coaching</a><a href="#plans" data-cursor>Plans</a>
+        <a href="#programs" data-cursor>Programs</a><a href="#about" data-cursor>About</a></div>
+      <div class="foot-col"><h5>Connect</h5>
+        <a href="https://www.instagram.com/ontherunfit/" target="_blank" rel="noopener" data-cursor>Instagram</a>
+        <a href="#start" data-cursor>Apply for Coaching</a>
+        <a href="mailto:ontherunfit@gmail.com" data-cursor>Email</a></div>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">© <span id="yr"></span> On The Run Fit · Lindsey Quebedeaux. All rights reserved.</div>
+</footer>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const hasGSAP = typeof window.gsap !== 'undefined';
+
+  /* ---------- basics that must always work ---------- */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const mb = document.getElementById('menuBtn');
+  const nav = document.getElementById('navLinks');
+  mb.addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  /* ---------- application form (graceful: real endpoint OR pre-filled email) ---------- */
+  (function(){
+    // WIRE: paste a Formspree URL ("https://formspree.io/f/xxxx") or a GHL/Zapier webhook URL here.
+    var FORM_ENDPOINT = "";
+    var form = document.getElementById('applyForm'); if(!form) return;
+    var statusEl = document.getElementById('formStatus');
+    function setStatus(msg){ statusEl.textContent = msg; statusEl.className = 'form-status show ok'; }
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      if(form._gotcha && form._gotcha.value) return;
+      if(!form.checkValidity()){ form.reportValidity(); return; }
+      var data = new FormData(form);
+      var btn = form.querySelector('button[type=submit]'), label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      function emailFallback(){
+        var subj = encodeURIComponent('Coaching application — ' + (data.get('first_name')||'') + ' ' + (data.get('last_name')||''));
+        var body = encodeURIComponent('Name: ' + (data.get('first_name')||'') + ' ' + (data.get('last_name')||'') + '\n' +
+          'Email: ' + (data.get('email')||'') + '\nWhat I run: ' + (data.get('event')||'') + '\nPlan: ' + (data.get('plan_interest')||'') +
+          '\n\nGoals: ' + (data.get('goals')||'') + '\n\nElse: ' + (data.get('extra')||''));
+        setStatus("Opening your email app to send it to Lindsey… if it doesn't open, email ontherunfit@gmail.com 💕");
+        location.href = 'mailto:ontherunfit@gmail.com?subject=' + subj + '&body=' + body;
+        btn.disabled = false; btn.innerHTML = label;
+      }
+      if(!FORM_ENDPOINT){ emailFallback(); return; }
+      fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{'Accept':'application/json'} })
+        .then(function(res){ if(res.ok){ form.reset(); setStatus("Got it! I read every application myself and I'll reply within a couple of days. 🔥"); } else throw new Error('x'); })
+        .catch(emailFallback).finally(function(){ btn.disabled = false; btn.innerHTML = label; });
+    });
+  })();
+
+  /* ---------- header show/hide + scrolled ---------- */
+  const header = document.getElementById('header');
+  let lastY = 0;
+  function onScrollHeader(y){
+    header.classList.toggle('scrolled', y > 30);
+    if(y > lastY && y > 400){ header.classList.add('hide'); } else { header.classList.remove('hide'); }
+    lastY = y;
+  }
+
+  /* ---------- preloader ---------- */
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loaderBar');
+  function hideLoader(cb){
+    if(!loader) { cb && cb(); return; }
+    loader.classList.add('hide');
+    if(hasGSAP && !reduce){
+      gsap.to(loaderBar,{width:'100%',duration:.5,ease:'power2.out'});
+      gsap.to(loader,{yPercent:-100,duration:.9,delay:.45,ease:'expo.inOut',onComplete:()=>{loader.style.display='none';cb&&cb();}});
+    } else {
+      loader.style.display='none'; cb && cb();
+    }
+  }
+
+  /* ---------- custom cursor ---------- */
+  function initCursor(){
+    if(!fine || reduce || !hasGSAP) return;
+    document.body.style.cursor='none';
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    const xS = gsap.quickTo(ring,'x',{duration:.4,ease:'power3'});
+    const yS = gsap.quickTo(ring,'y',{duration:.4,ease:'power3'});
+    const xF = gsap.quickTo(dot,'x',{duration:.08,ease:'power3'});
+    const yF = gsap.quickTo(dot,'y',{duration:.08,ease:'power3'});
+    window.addEventListener('mousemove',e=>{ xS(e.clientX);yS(e.clientY);xF(e.clientX);yF(e.clientY); });
+    document.querySelectorAll('a,button,[data-cursor],summary,input,select,textarea').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+    });
+  }
+
+  /* ---------- magnetic buttons ---------- */
+  function initMagnetic(){
+    if(!fine || reduce || !hasGSAP) return;
+    document.querySelectorAll('.magnetic').forEach(el=>{
+      el.addEventListener('mousemove',e=>{
+        const r = el.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width/2);
+        const my = e.clientY - (r.top + r.height/2);
+        gsap.to(el,{x:mx*0.35,y:my*0.5,duration:.4,ease:'power3'});
+      });
+      el.addEventListener('mouseleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,0.4)'}));
+    });
+  }
+
+  /* ---------- card tilt ---------- */
+  function initTilt(){
+    if(!fine || reduce || !hasGSAP) return;
+    document.querySelectorAll('.tilt').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+        gsap.to(card,{rotateY:px*6,rotateX:-py*6,duration:.4,ease:'power2',transformPerspective:900});
+      });
+      card.addEventListener('mouseleave',()=>gsap.to(card,{rotateY:0,rotateX:0,duration:.7,ease:'power3',clearProps:'transform'}));
+    });
+  }
+
+  /* ---------- count up ---------- */
+  function countUp(el){
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const dec = (String(el.dataset.count).split('.')[1]||'').length;
+    const obj = {v:0};
+    gsap.to(obj,{v:target,duration:1.6,ease:'power2.out',onUpdate:()=>{el.textContent=obj.v.toFixed(dec)+suffix;}});
+  }
+
+  /* ---------- main animation setup ---------- */
+  function initMotion(){
+    if(!hasGSAP){ return; }  // content already visible — nothing to do
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Lenis smooth scroll synced to ScrollTrigger */
+    let lenis = null;
+    if(window.Lenis && !reduce){
+      lenis = new Lenis({ lerp:.1, smoothWheel:true });
+      lenis.on('scroll', ()=>{ ScrollTrigger.update(); onScrollHeader(lenis.scroll||window.scrollY); });
+      gsap.ticker.add((t)=>lenis.raf(t*1000));
+      gsap.ticker.lagSmoothing(0);
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click',e=>{
+          const id=a.getAttribute('href'); if(id.length<2) return;
+          const t=document.querySelector(id); if(!t) return;
+          e.preventDefault(); lenis.scrollTo(t,{offset:-70});
+        });
+      });
+    } else {
+      window.addEventListener('scroll',()=>onScrollHeader(window.scrollY),{passive:true});
+    }
+
+    gsap.to('#progress',{scaleX:1,ease:'none',scrollTrigger:{scrub:.3,start:0,end:'max'}});
+
+    if(reduce){ return; }
+
+    const heroTL = gsap.timeline({delay:.1});
+    heroTL.from('.hero-title .ln>span',{yPercent:115,duration:1,ease:'expo.out',stagger:.12})
+          .from('.hero [data-reveal]',{y:26,opacity:0,duration:.8,ease:'power3.out',stagger:.1},'-=.6')
+          .from('.hero-photo',{scale:1.08,opacity:0,duration:1.1,ease:'expo.out'},'-=1')
+          .from('.scroll-hint',{opacity:0,duration:.6},'-=.3');
+
+    document.querySelectorAll('[data-count]').forEach(el=>{
+      ScrollTrigger.create({trigger:el,start:'top 90%',once:true,onEnter:()=>countUp(el)});
+    });
+
+    // Grid cards are revealed by the staggered loop below — exclude them here so
+    // they get exactly ONE from-tween (a double from-tween poisons the end value
+    // and leaves an inline transform that breaks the :hover lift). clearProps hands
+    // styling back to CSS once the reveal finishes, so hover works and nothing sticks hidden.
+    const isGridItem = el => el.matches('.why-card,.step,.plan,.mini,.quote,.prog');
+    const revealables = gsap.utils.toArray('[data-reveal]').filter(el=>!el.closest('.hero') && !isGridItem(el));
+    revealables.forEach(el=>{
+      gsap.from(el,{y:40,opacity:0,duration:.9,ease:'power3.out',clearProps:'transform,opacity',
+        scrollTrigger:{trigger:el,start:'top 86%',once:true}});
+    });
+
+    gsap.utils.toArray('.section-head h2').forEach(h=>{
+      gsap.from(h,{y:30,opacity:0,duration:.9,ease:'power3.out',clearProps:'transform,opacity',
+        scrollTrigger:{trigger:h,start:'top 88%',once:true}});
+    });
+
+    [['.why-grid','.why-card'],['.steps','.step'],['.plan-grid','.plan'],
+     ['.plan-extra','.mini'],['.quotes','.quote'],['.prog-grid','.prog']].forEach(([wrap,item])=>{
+      const parent=document.querySelector(wrap); if(!parent) return;
+      gsap.from(parent.querySelectorAll(item),{y:50,opacity:0,duration:.8,ease:'power3.out',stagger:.12,clearProps:'transform,opacity',
+        scrollTrigger:{trigger:parent,start:'top 80%',once:true}});
+    });
+
+    gsap.from('.trust-item',{y:24,opacity:0,duration:.7,ease:'power3.out',stagger:.1,
+      scrollTrigger:{trigger:'.trust',start:'top 88%',once:true}});
+
+    gsap.utils.toArray('[data-parallax]').forEach(el=>{
+      gsap.to(el,{yPercent:-12,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:true}});
+    });
+
+    const track=document.getElementById('marquee');
+    if(track){
+      track.innerHTML += track.innerHTML;
+      let dir=1;
+      const loop=gsap.to(track,{xPercent:-50,repeat:-1,duration:18,ease:'none'});
+      ScrollTrigger.create({trigger:'.marquee',start:'top bottom',end:'bottom top',
+        onUpdate:self=>{ const v=self.getVelocity(); if(v!==0){ dir = v<0?-1:1; loop.timeScale(dir*Math.min(3, 1+Math.abs(v)/600)); }
+          else loop.timeScale(dir); }});
+    }
+
+    ScrollTrigger.refresh();
+  }
+
+  /* ---------- boot ---------- */
+  let booted = false;
+  function boot(){
+    if(booted) return; booted = true;
+    initCursor();
+    initMagnetic();
+    initTilt();
+    hideLoader(initMotion);
+  }
+  setTimeout(boot, 1600);
+  window.addEventListener('load', boot);
+  if(document.readyState === 'complete') boot();
+})();
+</script>
+</body>
+</html>

@@ -3,15 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>On The Run Fit — 1-on-1 Running Coaching with Lindsey Quebedeaux</title>
-<meta name="description" content="Personalized 1-on-1 running coaching with Coach Lindsey Quebedeaux. Sprinters to marathoners, first-timers to Boston qualifiers. A plan built just for you, and a coach in your corner." />
+<title>On The Run Fit — 1-on-1 Running Coaching | New Braunfels, TX &amp; Online</title>
+<meta name="description" content="1-on-1 running coaching with Coach Lindsey Quebedeaux — New Braunfels, TX &amp; online. Sprints to marathon, first-timers to Boston qualifiers." />
 <meta name="theme-color" content="#FBF6EE" />
 
+<link rel="canonical" href="https://on-the-run-fit.vercel.app/" />
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="On The Run Fit" />
+<meta property="og:url" content="https://on-the-run-fit.vercel.app/" />
 <meta property="og:title" content="On The Run Fit — Your plan. Your goals. Your coach." />
-<meta property="og:description" content="Personalized 1-on-1 running coaching with Lindsey Q. Sprints to marathon." />
-<meta property="og:image" content="assets/img/hero-run.webp" />
+<meta property="og:description" content="1-on-1 running coaching with Coach Lindsey Quebedeaux — New Braunfels, TX &amp; online. Sprints to marathon." />
+<meta property="og:image" content="https://on-the-run-fit.vercel.app/assets/img/hero-run.webp" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://on-the-run-fit.vercel.app/assets/img/hero-run.webp" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBF6EE'/%3E%3Cpath d='M6 22 Q16 6 26 22' fill='none' stroke='%23C42A5E' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='26' cy='22' r='2.6' fill='%23D23B6E'/%3E%3C/svg%3E" />
 
@@ -555,7 +559,22 @@ html.lenis,html.lenis body{height:auto}
   .loader .bar i{transition:none}
 }
 .no-js .loader,.no-js .progress{display:none}
+
+/* hero deck + mobile sticky CTA (audit additions) */
+.hero-deck{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.15rem,2.5vw,1.55rem);line-height:1.4;color:var(--ink);margin:1.1rem 0 0;max-width:36ch}
+.hero-deck em{font-style:italic;color:var(--rose-text)}
+.sticky-cta{display:none}
+@media(max-width:680px){
+  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:45;
+    padding:.6rem var(--pad) calc(.6rem + env(safe-area-inset-bottom));
+    background:rgba(251,246,238,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);
+    box-shadow:0 -8px 24px -18px rgba(42,35,32,.5);transform:translateY(130%);transition:transform .35s var(--ease)}
+  .sticky-cta.show{transform:none}
+  .sticky-cta .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion: reduce){.sticky-cta{transition:none}}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Lindsey Quebedeaux","jobTitle":"Running Coach","alumniOf":"Texas State University","hasCredential":"USATF Level 1 Certified Coach","worksFor":{"@type":"Organization","name":"On The Run Fit"},"sameAs":["https://www.instagram.com/ontherunfit/"]},{"@type":"LocalBusiness","name":"On The Run Fit","description":"1-on-1 running coaching, in person in New Braunfels, TX and online nationwide. Sprints to marathon.","url":"https://on-the-run-fit.vercel.app/","email":"ontherunfit@gmail.com","areaServed":["New Braunfels, TX","San Antonio, TX","Online — United States"],"founder":{"@type":"Person","name":"Lindsey Quebedeaux"},"address":{"@type":"PostalAddress","addressLocality":"New Braunfels","addressRegion":"TX","addressCountry":"US"}}]}</script>
 </head>
 <body>
 
@@ -588,6 +607,8 @@ html.lenis,html.lenis body{height:auto}
   </div>
 </header>
 
+<div class="sticky-cta" id="stickyCta" aria-hidden="true"><a href="#apply" class="btn btn-primary" aria-label="Apply for coaching">Apply for Coaching <span class="arr">→</span></a></div>
+
 <main id="top">
 
 <!-- HERO -->
@@ -600,11 +621,12 @@ html.lenis,html.lenis body{height:auto}
         <span class="ln"><span class="ln-i">Your goals.</span></span>
         <span class="ln"><span class="ln-i"><em>Your coach.</em></span></span>
       </h1>
-      <p class="lead" data-reveal>Hi, I'm Lindsey! I coach every kind of runner — middle-school sprinters, masters marathoners, comeback moms, total first-timers — with a plan built just for you and a coach who actually cares how it goes. I'm still out there chasing my own PRs, so I'm not guessing — I get it. Let's go get your goal.</p>
+      <p class="hero-deck" data-reveal>A training plan built only for you — by a <em>USATF-certified coach who's still on the start line herself.</em></p>
+      <p class="lead" data-reveal>Hi, I'm Lindsey! I build one runner's plan at a time — around your event, your body, and the week you actually have. Whether you're chasing a first 5K, a Boston time, or a faster 400m, you get a coach who's still out there racing too — so I'm not guessing. I get it. Let's go get your goal.</p>
       <div class="hero-cta" data-reveal>
         <a href="#apply" class="btn btn-primary magnetic">Apply for Coaching <span class="arr">→</span></a>
         <a href="#plans" class="btn btn-ghost magnetic">See Plans &amp; Pricing</a>
-        <span class="micro">I keep my roster small so every athlete gets the real me — just a few spots open each month.</span>
+        <span class="micro">I coach a small roster so every athlete gets the real me — if a spot's open, I'd love to hear from you.</span>
       </div>
       <div class="hero-stats" data-reveal>
         <div class="s"><b class="tab">59.74</b><span>400m PR</span></div>
@@ -777,7 +799,7 @@ html.lenis,html.lenis body{height:auto}
   <div class="wrap" data-reveal>
     <div class="orn" data-reveal aria-hidden="true" style="margin-bottom:1.5rem"><span></span></div>
     <h3>Here's my promise to you</h3>
-    <p>Train with me for two full weeks. If it's not the right fit, just tell me and I'll make it right — no awkwardness, no hard feelings. You're never locked into a contract, and you can cancel anytime. The only real risk is another season of guessing on your own, and friend, you've done enough of that.</p>
+    <p>Train with me for two full weeks. If it's not the right fit, just tell me and I'll make it right — no awkwardness, no hard feelings. You're never locked into a contract, and you can cancel anytime. All I'm asking is two weeks; what's waiting on the other side is the season you've been training for.</p>
     <span class="sig">— Lindsey</span>
   </div>
 </section>
@@ -828,7 +850,7 @@ html.lenis,html.lenis body{height:auto}
       <h2 id="about-h" data-kinetic>Hi, I'm Lindsey!</h2>
       <div class="role" data-reveal>USATF Level 1 Certified Coach · 400m Masters Track Athlete · Boy Mom · Wife</div>
       <p data-reveal>I've been a runner since junior high — all through high school, four years of track and cross country at Texas State, and now as a USA Masters track athlete still chasing PRs in my main event, the <em>400m</em>. So when I talk about the comeback grind, the busy-season juggle, and the days you feel SO far from where you were… I'm not guessing. I'm living it right alongside my athletes.</p>
-      <p data-reveal>I've got my B.S. in Exercise &amp; Sports Science with a minor in Sports Psychology — plus my <em>USATF Level 1 Track &amp; Field Coaching certification</em> — so I coach the body AND the mind, backed by real science. By day I'm a high school PE teacher and track/XC coach, and I've coached it all: explosive sprinters, distance runners, nervous first-timers, comeback moms, and Boston qualifiers. Whether you're at the track with me or an online athlete across the country, you get the same me: real talk, real structure, and someone who genuinely believes in you.</p>
+      <p data-reveal>I've got my B.S. in Exercise &amp; Sports Science with a minor in Sports Psychology — plus my <em>USATF Level 1 Track &amp; Field Coaching certification</em> — so I coach the body AND the mind, backed by real science. By day I'm a high school PE teacher and track/XC coach, and I've coached it all: explosive sprinters, distance runners, nervous first-timers, comeback moms, and Boston qualifiers. Whether you're at the track with me or an online athlete across the country, you get the same me: real talk, real structure, and someone who genuinely believes in you. I'm based in New Braunfels, Texas — coaching local athletes in person and runners all over the country online, from first 5Ks to the marathon and Boston-qualifying goals.</p>
       <div class="prs" data-reveal>
         <div class="pr hot"><div class="v tab">59.74</div><div class="k">400m · main event</div></div>
         <div class="pr"><div class="v tab">27.02</div><div class="k">200m</div></div>
@@ -909,7 +931,7 @@ html.lenis,html.lenis body{height:auto}
       <div class="head" style="margin-bottom:1.9rem">
         <span class="eyebrow">Start here</span>
         <h2 id="apply-h" data-kinetic>Let's do this together</h2>
-        <p class="sub" data-reveal>Tell me about your running and your goals — it takes about two minutes. I read every application myself and reply personally with the plan that fits you. I keep my roster small, so spots are limited — and I can't wait to meet you.</p>
+        <p class="sub" data-reveal>Tell me about your running and your goals — it takes about two minutes. I read every application myself and reply personally with the plan that fits you. I can't wait to meet you.</p>
       </div>
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       <!-- WIRE: paste your Formspree URL or GHL webhook into FORM_ENDPOINT below. Falls back to a pre-filled email until then. -->
@@ -1061,10 +1083,22 @@ html.lenis,html.lenis body{height:auto}
       var data=new FormData(form),btn=form.querySelector('button[type=submit]'),label=btn.innerHTML;btn.disabled=true;btn.textContent='Sending…';
       function email(){var s=encodeURIComponent('Coaching application — '+(data.get('first_name')||'')+' '+(data.get('last_name')||''));
         var b=encodeURIComponent('Name: '+(data.get('first_name')||'')+' '+(data.get('last_name')||'')+'\nEmail: '+(data.get('email')||'')+'\nWhat I run: '+(data.get('event')||'')+'\nPlan: '+(data.get('plan_interest')||'')+'\n\nGoals: '+(data.get('goals')||'')+'\n\nElse: '+(data.get('extra')||''));
-        setStatus("Opening your email app to send it to Lindsey… if it doesn't open, email ontherunfit@gmail.com",true);location.href='mailto:ontherunfit@gmail.com?subject='+s+'&body='+b;btn.disabled=false;btn.innerHTML=label;}
+        var murl='mailto:ontherunfit@gmail.com?subject='+s+'&body='+b;
+        statusEl.innerHTML='One last tap to finish — <a href="'+murl+'" style="color:var(--rose-deep);text-decoration:underline;font-weight:700">send your application to Lindsey →</a><br><span style="font-weight:500">Or email it to ontherunfit@gmail.com — I read every one myself.</span>';
+        statusEl.className='form-status show ok';if(tape)tape.classList.add('broke');btn.disabled=false;btn.innerHTML=label;}
       if(!FORM_ENDPOINT){email();return;}
       fetch(FORM_ENDPOINT,{method:'POST',body:data,headers:{'Accept':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll reply within a couple of days. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
     });
+  })();
+
+  /* mobile sticky CTA (audit addition) — show after hero, hide over the form */
+  (function(){
+    var sticky=document.getElementById('stickyCta');if(!sticky||!('IntersectionObserver' in window))return;
+    var heroEl=document.querySelector('.hero'),applyEl=document.getElementById('apply');
+    var past=false,atForm=false;
+    function upd(){sticky.classList.toggle('show',past&&!atForm);}
+    if(heroEl)new IntersectionObserver(function(es){es.forEach(function(e){past=!e.isIntersecting&&e.boundingClientRect.top<0;});upd();},{threshold:0}).observe(heroEl);
+    if(applyEl)new IntersectionObserver(function(es){es.forEach(function(e){atForm=e.isIntersecting;});upd();},{threshold:0}).observe(applyEl);
   })();
 })();
 </script>
@@ -1182,7 +1216,7 @@ html.lenis,html.lenis body{height:auto}
     initMagnetic();
     hideLoader(initMotion);
   }
-  setTimeout(boot,1800);            // safety net so the loader never sticks
+  setTimeout(boot,900);             // safety net so the loader never sticks
   window.addEventListener('load',boot);
   if(document.readyState==='complete')boot();
 })();

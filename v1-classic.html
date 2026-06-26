@@ -712,7 +712,7 @@
 
     <div class="form-card" data-reveal>
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-      <!-- WIRE: paste your Formspree URL or GHL webhook into FORM_ENDPOINT in the script below.
+      <!-- WIRE: paste your /api/lead endpoint into FORM_ENDPOINT in the script below.
            Until then the form opens a pre-filled email to ontherunfit@gmail.com so it's never a dead end. -->
       <form id="applyForm" novalidate>
         <div style="position:absolute;left:-9999px" aria-hidden="true"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></div>
@@ -794,8 +794,8 @@
 
   /* ---------- application form (graceful: real endpoint OR pre-filled email) ---------- */
   (function(){
-    // WIRE: paste a Formspree URL ("https://formspree.io/f/xxxx") or a GHL/Zapier webhook URL here.
-    var FORM_ENDPOINT = "";
+    // WIRE: /api/lead sends application notifications through Resend once Vercel env vars are configured.
+    var FORM_ENDPOINT = "/api/lead";
     var form = document.getElementById('applyForm'); if(!form) return;
     var statusEl = document.getElementById('formStatus');
     function setStatus(msg){ statusEl.textContent = msg; statusEl.className = 'form-status show ok'; }

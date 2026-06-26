@@ -7,15 +7,15 @@
 <meta name="description" content="1-on-1 running coaching with Coach Lindsey Quebedeaux — New Braunfels, TX &amp; online. Sprints to marathon, first-timers to Boston qualifiers." />
 <meta name="theme-color" content="#FBF6EE" />
 
-<link rel="canonical" href="https://on-the-run-fit.vercel.app/" />
+<link rel="canonical" href="https://ontherunfit.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="On The Run Fit" />
-<meta property="og:url" content="https://on-the-run-fit.vercel.app/" />
+<meta property="og:url" content="https://ontherunfit.com/" />
 <meta property="og:title" content="On The Run Fit — Your plan. Your goals. Your coach." />
 <meta property="og:description" content="1-on-1 running coaching with Coach Lindsey Quebedeaux — New Braunfels, TX &amp; online. Sprints to marathon." />
-<meta property="og:image" content="https://on-the-run-fit.vercel.app/assets/img/hero-run.webp" />
+<meta property="og:image" content="https://ontherunfit.com/assets/img/hero-run.webp" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://on-the-run-fit.vercel.app/assets/img/hero-run.webp" />
+<meta name="twitter:image" content="https://ontherunfit.com/assets/img/hero-run.webp" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FBF6EE'/%3E%3Cpath d='M6 22 Q16 6 26 22' fill='none' stroke='%23C42A5E' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='26' cy='22' r='2.6' fill='%23D23B6E'/%3E%3C/svg%3E" />
 
@@ -159,11 +159,28 @@ header.scrolled{background:rgba(251,246,238,.9);backdrop-filter:blur(10px);box-s
 .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
 .brand{font-family:var(--serif);font-weight:600;font-size:1.55rem;letter-spacing:.01em}
 .brand span{color:var(--rose-text)}
-.nav-links{display:flex;align-items:center;gap:2.1rem}
+.nav-links{display:flex;align-items:stretch;gap:0;position:fixed;inset:76px 0 auto 0;background:var(--cream);flex-direction:column;padding:.5rem 0;
+  box-shadow:0 14px 30px -16px rgba(0,0,0,.2);transform:translateY(-12px);opacity:0;pointer-events:none;
+  transition:.3s var(--ease);max-height:calc(100svh - 76px);overflow-y:auto}
+.nav-links.open{transform:none;opacity:1;pointer-events:auto}
 .nav-links a:not(.btn){font-weight:500;font-size:.92rem;color:var(--ink-72)}
 .nav-cta{padding:.56rem 1.3rem;font-size:.9rem}
-.menu-btn{display:none;align-items:center;justify-content:center;min-height:44px;min-width:44px;background:none;border:none;
-  color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.05rem;cursor:pointer}
+.menu-btn{display:flex;align-items:center;justify-content:center;position:fixed;top:16px;right:auto;left:320px;z-index:160;
+  min-height:44px;min-width:48px;width:48px;height:44px;
+  border-radius:999px;background:var(--ink);border:1px solid rgba(42,35,32,.14);box-shadow:0 12px 28px -20px rgba(42,35,32,.55);
+  color:transparent;font-size:0;cursor:pointer}
+.menu-btn::before{content:"";display:block;width:18px;height:2px;border-radius:999px;background:var(--cream);
+  box-shadow:0 -6px 0 var(--cream),0 6px 0 var(--cream)}
+@media(min-width:1400px){
+  .nav-links{position:static;align-items:center;flex-direction:row;gap:2.1rem;background:transparent;padding:0;
+    box-shadow:none;transform:none;opacity:1;pointer-events:auto;max-height:none;overflow:visible}
+  .nav-links a:not(.btn){padding-bottom:1px;width:auto}
+  .nav-links .nav-cta{margin:0}
+  .menu-btn{display:none}
+}
+@media(min-width:681px) and (max-width:1399px){
+  #menuBtn.menu-btn{right:22px!important;left:auto!important}
+}
 /* drawn underline — hover AND focus-visible (accessibility-as-craft) */
 .nav-links a:not(.btn),.prog .link,.mini a,.foot-col a,.contents li a .cl{
   background-image:linear-gradient(var(--rose),var(--rose));background-size:0% 1.5px;background-position:0 100%;
@@ -505,6 +522,25 @@ footer{background:var(--ink);color:var(--cream-72);padding:66px 0 34px}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:2.4rem;padding-top:1.4rem;font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;color:rgba(251,246,238,.5)}
 
 @media(max-width:680px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  .wrap{max-width:100%;padding-left:22px;padding-right:22px}
+  .nav,.hero-grid,.hero-grid>*{min-width:0}
+  .brand{min-width:0}
+  header .nav{width:100vw;max-width:100vw;margin:0}
+  .menu-btn{position:fixed;right:22px;top:16px;z-index:90}
+  header .brand{padding-right:86px}
+  .hero-media,.hero-frame,.hero-frame .ph{width:100%;max-width:100%}
+  p,.lead,.sub{text-wrap:wrap}
+  .hero .lead{width:auto;max-width:28ch;overflow-wrap:break-word;font-size:1.03rem;line-height:1.7}
+  .hero-deck,.hero .micro{width:auto;max-width:30ch;overflow-wrap:break-word}
+  .hero .eyebrow{display:block;width:auto;max-width:28ch;white-space:normal;overflow-wrap:anywhere;line-height:1.45;letter-spacing:.16em}
+  .hero h1{font-size:clamp(2.55rem,13vw,3.35rem);line-height:1}
+  .set .ln{overflow:visible}
+  .strip-mask{-webkit-mask-image:none;mask-image:none;overflow:hidden}
+  .strip-track{width:100%;white-space:normal;display:block;transform:none!important;animation:none!important}
+  .strip-set{display:block;white-space:normal;text-align:center;line-height:1.5}
+  .strip-set[aria-hidden]{display:none}
+  .btn{max-width:100%;white-space:normal;text-align:center}
   .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--cream);flex-direction:column;gap:0;padding:.5rem 0;
     box-shadow:0 14px 30px -16px rgba(0,0,0,.2);transform:translateY(-12px);opacity:0;pointer-events:none;
     transition:.3s var(--ease);max-height:calc(100svh - 76px);overflow-y:auto}
@@ -512,6 +548,11 @@ footer{background:var(--ink);color:var(--cream-72);padding:66px 0 34px}
   .nav-links a:not(.btn){padding:.9rem var(--pad);width:100%}
   .nav-links .nav-cta{margin:.6rem var(--pad)}
   .menu-btn{display:flex}
+  #menuBtn.menu-btn{
+    right:auto!important;
+    left:calc(100vw - 70px)!important;
+    left:calc(100svw - 70px)!important;
+  }
   .hero-cta .btn{width:100%;justify-content:center}
   .form-row{grid-template-columns:1fr}
   .field input,.field select,.field textarea{font-size:16px}
@@ -559,7 +600,7 @@ html.lenis,html.lenis body{height:auto}
   background:linear-gradient(90deg,var(--rose-deep),var(--rose),var(--rose-btn));z-index:120;pointer-events:none}
 
 /* preloader — editorial cover that lifts away */
-.loader{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;
+  .loader{position:fixed;inset:0;z-index:200;background:var(--ink);display:none;
   align-items:center;justify-content:center;flex-direction:column;gap:20px}
 .loader.hide{pointer-events:none}
 .loader .mark{font-family:var(--serif);font-weight:600;color:var(--cream);
@@ -589,6 +630,39 @@ html.lenis,html.lenis body{height:auto}
 .hero-deck{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.15rem,2.5vw,1.55rem);line-height:1.4;color:var(--ink);margin:1.1rem 0 0;max-width:36ch}
 .hero-deck em{font-style:italic;color:var(--rose-text)}
 .sticky-cta{display:none}
+@media(max-width:1100px){
+  header .nav{width:100vw;max-width:100vw;margin:0}
+  header .brand{padding-right:86px}
+  .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--cream);flex-direction:column;gap:0;padding:.5rem 0;
+    box-shadow:0 14px 30px -16px rgba(0,0,0,.2);transform:translateY(-12px);opacity:0;pointer-events:none;
+    transition:.3s var(--ease);max-height:calc(100svh - 76px);overflow-y:auto}
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a:not(.btn){padding:.9rem var(--pad);width:100%}
+  .nav-links .nav-cta{margin:.6rem var(--pad)}
+  #menuBtn.menu-btn{
+    display:flex!important;
+    position:fixed!important;
+    top:16px!important;
+    width:48px!important;
+    height:44px!important;
+    z-index:160!important;
+    border-radius:999px!important;
+    background:var(--ink)!important;
+    border:1px solid rgba(42,35,32,.14)!important;
+    box-shadow:0 12px 28px -20px rgba(42,35,32,.55)!important;
+    color:transparent!important;
+    font-size:0!important;
+  }
+  #menuBtn.menu-btn::before{
+    content:"";
+    display:block;
+    width:18px;
+    height:2px;
+    border-radius:999px;
+    background:var(--cream);
+    box-shadow:0 -6px 0 var(--cream),0 6px 0 var(--cream);
+  }
+}
 @media(max-width:680px){
   .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:45;
     padding:.6rem var(--pad) calc(.6rem + env(safe-area-inset-bottom));
@@ -599,17 +673,12 @@ html.lenis,html.lenis body{height:auto}
 }
 @media (prefers-reduced-motion: reduce){.sticky-cta{transition:none}}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Lindsey Quebedeaux","jobTitle":"Running Coach","alumniOf":"Texas State University","hasCredential":"USATF Level 1 Certified Coach","worksFor":{"@type":"Organization","name":"On The Run Fit"},"sameAs":["https://www.instagram.com/ontherunfit/"]},{"@type":"LocalBusiness","name":"On The Run Fit","description":"1-on-1 running coaching, in person in New Braunfels, TX and online nationwide. Sprints to marathon.","url":"https://on-the-run-fit.vercel.app/","email":"ontherunfit@gmail.com","areaServed":["New Braunfels, TX","San Antonio, TX","Online — United States"],"founder":{"@type":"Person","name":"Lindsey Quebedeaux"},"address":{"@type":"PostalAddress","addressLocality":"New Braunfels","addressRegion":"TX","addressCountry":"US"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","name":"Lindsey Quebedeaux","jobTitle":"Running Coach","alumniOf":"Texas State University","hasCredential":"USATF Level 1 Certified Coach","worksFor":{"@type":"Organization","name":"On The Run Fit"},"sameAs":["https://www.instagram.com/ontherunfit/"]},{"@type":"LocalBusiness","name":"On The Run Fit","description":"1-on-1 running coaching, in person in New Braunfels, TX and online nationwide. Sprints to marathon.","url":"https://ontherunfit.com/","email":"ontherunfit@gmail.com","areaServed":["New Braunfels, TX","San Antonio, TX","Online — United States"],"founder":{"@type":"Person","name":"Lindsey Quebedeaux"},"address":{"@type":"PostalAddress","addressLocality":"New Braunfels","addressRegion":"TX","addressCountry":"US"}}]}</script>
 </head>
 <body>
 
-<!-- V7: scroll-progress + preloader (additive; hidden when JS/GSAP unavailable) -->
+<!-- V7: scroll-progress only. The old full-screen preloader was removed because it could block the first view. -->
 <div class="progress" id="progress" aria-hidden="true"></div>
-<div class="loader" id="loader" aria-hidden="true">
-  <div class="mark">On The Run <em>Fit</em></div>
-  <div class="bar"><i id="loaderBar"></i></div>
-  <div class="issue">Issue 01 · Your plan. Your goals. Your coach.</div>
-</div>
 
 <aside class="folio" aria-hidden="true">
   <span class="folio-label" id="folioLabel">00 · On The Run Fit</span>
@@ -619,20 +688,20 @@ html.lenis,html.lenis body{height:auto}
 
 <header id="header">
   <div class="wrap nav">
-    <a href="#top" class="brand">On The Run <span>Fit</span></a>
+    <a href="index.html" class="brand">On The Run <span>Fit</span></a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="#why">Why Coaching</a>
-      <a href="#plans">Plans</a>
-      <a href="#programs">Programs</a>
-      <a href="#about">About</a>
-      <a href="#results">Results</a>
-      <a href="#apply" class="btn btn-primary nav-cta magnetic">Apply for Coaching</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="programs.html">Programs</a>
+      <a href="results.html">Results</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="apply.html" class="btn btn-primary nav-cta magnetic">Apply for Coaching</a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">Menu</button>
   </div>
 </header>
 
-<div class="sticky-cta" id="stickyCta" aria-hidden="true"><a href="#apply" class="btn btn-primary" aria-label="Apply for coaching">Apply for Coaching <span class="arr">→</span></a></div>
+<div class="sticky-cta" id="stickyCta" aria-hidden="true"><a href="apply.html" class="btn btn-primary" aria-label="Apply for coaching">Apply for Coaching <span class="arr">→</span></a></div>
 
 <main id="top">
 
@@ -649,8 +718,8 @@ html.lenis,html.lenis body{height:auto}
       <p class="hero-deck" data-reveal>A training plan built only for you — by a <em>USATF-certified coach who's still on the start line herself.</em></p>
       <p class="lead" data-reveal>Hi, I'm Lindsey! I build one runner's plan at a time — around your event, your body, and the week you actually have. Whether you're chasing a first 5K, a Boston time, or a faster 400m, you get a coach who's still out there racing too — so I'm not guessing. I get it. Let's go get your goal.</p>
       <div class="hero-cta" data-reveal>
-        <a href="#apply" class="btn btn-primary magnetic">Apply for Coaching <span class="arr">→</span></a>
-        <a href="#plans" class="btn btn-ghost magnetic">See Plans &amp; Pricing</a>
+        <a href="apply.html" class="btn btn-primary magnetic">Apply for Coaching <span class="arr">→</span></a>
+        <a href="coaching.html" class="btn btn-ghost magnetic">See Plans &amp; Pricing</a>
         <span class="micro">I coach a small roster so every athlete gets the real me — if a spot's open, I'd love to hear from you.</span>
       </div>
       <div class="hero-stats" data-reveal>
@@ -798,7 +867,7 @@ html.lenis,html.lenis body{height:auto}
           <p>Do everything I ask — finish your workouts, show up for your calls, check in each week, run the plan as written — and if you're not measurably fitter and faster at your 90-day re-test, it's <em>your money back, or I keep coaching you free until you get there — your call.</em> I can't promise race day; I can promise the work works.</p>
         </div>
       </div>
-      <a href="#apply" class="btn btn-primary magnetic">Start the 90-Day Build <span class="arr">→</span></a>
+      <a href="apply.html?plan=all-in" class="btn btn-primary magnetic">Start the 90-Day Build <span class="arr">→</span></a>
     </div>
 
     <p class="monthly-lead" data-reveal>Prefer to go month to month? Two ways to get coached — no contract, cancel anytime.</p>
@@ -819,7 +888,7 @@ html.lenis,html.lenis body{height:auto}
           <li>My Mobility Program included <em>(a $67 value)</em></li>
           <li>On The Run Recipes included</li>
         </ul>
-        <a href="#apply" class="btn btn-ghost magnetic">Start with Coached <span class="arr">→</span></a>
+        <a href="apply.html?plan=coached" class="btn btn-ghost magnetic">Start with Coached <span class="arr">→</span></a>
       </div>
       <div class="plan feat" data-reveal>
         <span class="badge">Everything, every week</span>
@@ -836,13 +905,13 @@ html.lenis,html.lenis body{height:auto}
           <li>Nutrition guidance built around your training</li>
           <li>First priority on my schedule</li>
         </ul>
-        <a href="#apply" class="btn btn-primary magnetic">Go Race Ready <span class="arr">→</span></a>
+        <a href="apply.html?plan=race-ready" class="btn btn-primary magnetic">Go Race Ready <span class="arr">→</span></a>
       </div>
     </div>
     <div class="minis">
       <div class="mini" data-reveal><h4>Strength &amp; Conditioning</h4><div class="p tab">$67<small>/mo</small></div><p>A standalone strength plan that builds real power and keeps you durable — pairs with any running.</p></div>
-      <div class="mini" data-reveal><h4>In-Person Coaching</h4><div class="lbl">Local · New Braunfels, TX</div><div class="p tab">$547<small>/mo</small></div><p>My highest-touch level — we train together in person. Daily-updated plans, unlimited text &amp; email, and hands-on form work most coaches charge per session for. <a href="#apply">Local? Ask about cash or Venmo →</a></p></div>
-      <div class="mini" data-reveal><h4>Teams &amp; Schools</h4><div class="lbl">XC / Track season</div><div class="p tab">$1,197<small>/season</small></div><p>A 2–3 hr video session to program your whole season, plus tools and email all season. <a href="#apply">Inquire →</a></p></div>
+      <div class="mini" data-reveal><h4>In-Person Coaching</h4><div class="lbl">Local · New Braunfels, TX</div><div class="p tab">$547<small>/mo</small></div><p>My highest-touch level — we train together in person. Daily-updated plans, unlimited text &amp; email, and hands-on form work most coaches charge per session for. <a href="apply.html?plan=in-person">Local? Ask about cash or Venmo →</a></p></div>
+      <div class="mini" data-reveal><h4>Teams &amp; Schools</h4><div class="lbl">XC / Track season</div><div class="p tab">$1,197<small>/season</small></div><p>A 2–3 hr video session to program your whole season, plus tools and email all season. <a href="apply.html?plan=teams">Inquire →</a></p></div>
     </div>
     <p class="plans-note" data-reveal>Coached and Race Ready are month to month — no contract, cancel anytime. All-In is a 90-day commitment, backed by my results promise. Still deciding? Apply and I'll help you choose the right fit.</p>
   </div>
@@ -874,19 +943,19 @@ html.lenis,html.lenis body{height:auto}
         <div class="tiers"><span>Beginner</span><span>Intermediate</span><span>Advanced</span></div>
         <h3>12-Week 5K Programs</h3>
         <p>Three structured 12-week plans that meet you where you are and build you toward a stronger, faster 5K. Each comes with my Pace Groups &amp; Terms guide — no guesswork.</p>
-        <!-- WIRE: real 5K checkout URL --><a href="#apply" class="link">Get Your 5K Plan <span class="arr">→</span></a>
+        <!-- WIRE: replace with real 5K checkout URL when Stripe/Gumroad is ready --><a href="programs.html#five-k" class="link">See the 5K Plans <span class="arr">→</span></a>
       </div>
       <div class="prog" data-reveal>
         <div class="prog-ph" data-wipe><figure class="ph"><img src="assets/img/mobility.webp" width="1900" height="799" loading="lazy" alt="Mobility work on a dock by the water." /></figure></div>
         <h3>Mobility Program</h3>
         <p>A guided mobility routine that lowers injury risk and teaches your body to move efficiently — so you run stronger for longer. The work most runners skip.</p>
-        <!-- WIRE: real Mobility checkout URL --><a href="#apply" class="link">Buy Now <span class="arr">→</span></a>
+        <!-- WIRE: replace with real Mobility checkout URL when Stripe/Gumroad is ready --><a href="programs.html#mobility" class="link">See Mobility <span class="arr">→</span></a>
       </div>
       <div class="prog" data-reveal>
         <div class="prog-ph" data-wipe><figure class="ph"><img src="assets/img/strength.webp" width="1200" height="1200" loading="lazy" alt="Athletic strength training." /></figure></div>
         <h3>On The Run Recipes</h3>
         <p>My e-cookbook of runner-friendly breakfasts, salads, entrées, sides, and desserts to actually fuel your training. Real food for real runners.</p>
-        <!-- WIRE: real Recipes checkout URL --><a href="#apply" class="link">Buy the E-Book <span class="arr">→</span></a>
+        <!-- WIRE: replace with real Recipes checkout URL when Stripe/Gumroad is ready --><a href="programs.html#recipes" class="link">See Recipes <span class="arr">→</span></a>
       </div>
     </div>
   </div>
@@ -988,7 +1057,7 @@ html.lenis,html.lenis body{height:auto}
         <p class="sub" data-reveal>Tell me about your running and your goals — it takes about two minutes. I read every application myself and reply personally with the plan that fits you. I can't wait to meet you.</p>
       </div>
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-      <!-- WIRE: paste your Formspree URL or GHL webhook into FORM_ENDPOINT below. Falls back to a pre-filled email until then. -->
+      <!-- WIRE: /api/lead sends application notifications through Resend once Vercel env vars are configured. Falls back to a pre-filled email until then. -->
       <form id="applyForm" novalidate>
         <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
         <div class="form-row">
@@ -1021,8 +1090,8 @@ html.lenis,html.lenis body{height:auto}
       <span class="foot-sig">Let's go get your goal. — Lindsey</span>
     </div>
     <div class="foot-cols">
-      <div class="foot-col"><h5>Explore</h5><a href="#why">Why Coaching</a><a href="#plans">Plans</a><a href="#programs">Programs</a><a href="#about">About</a><a href="#results">Results</a></div>
-      <div class="foot-col"><h5>Connect</h5><a href="https://www.instagram.com/ontherunfit/" target="_blank" rel="noopener">Instagram</a><a href="#apply">Apply for Coaching</a><a href="mailto:ontherunfit@gmail.com">Email</a></div>
+      <div class="foot-col"><h5>Explore</h5><a href="coaching.html">Coaching</a><a href="programs.html">Programs</a><a href="results.html">Results</a><a href="about.html">About</a><a href="faq.html">FAQ</a></div>
+      <div class="foot-col"><h5>Connect</h5><a href="https://www.instagram.com/ontherunfit/" target="_blank" rel="noopener">Instagram</a><a href="apply.html">Apply for Coaching</a><a href="privacy.html">Privacy</a><a href="mailto:ontherunfit@gmail.com">Email</a></div>
     </div>
   </div>
   <div class="wrap foot-bottom"><span>© <span id="yr"></span> On The Run Fit · Lindsey Quebedeaux.</span><span>New Braunfels, TX</span></div>
@@ -1125,7 +1194,7 @@ html.lenis,html.lenis body{height:auto}
 
   /* form */
   (function(){
-    var FORM_ENDPOINT=""; // WIRE: Formspree URL or GHL/Zapier webhook
+    var FORM_ENDPOINT="/api/lead";
     var form=document.getElementById('applyForm');if(!form)return;var statusEl=document.getElementById('formStatus');
     var tape=document.querySelector('.tape');
     function setStatus(m,ok){statusEl.textContent=m;statusEl.className='form-status show '+(ok?'ok':'bad');if(ok&&tape)tape.classList.add('broke');}
@@ -1141,7 +1210,8 @@ html.lenis,html.lenis body{height:auto}
         statusEl.innerHTML='One last tap to finish — <a href="'+murl+'" style="color:var(--rose-deep);text-decoration:underline;font-weight:700">send your application to Lindsey →</a><br><span style="font-weight:500">Or email it to ontherunfit@gmail.com — I read every one myself.</span>';
         statusEl.className='form-status show ok';if(tape)tape.classList.add('broke');btn.disabled=false;btn.innerHTML=label;}
       if(!FORM_ENDPOINT){email();return;}
-      fetch(FORM_ENDPOINT,{method:'POST',body:data,headers:{'Accept':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll reply within a couple of days. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
+      var payload={};data.forEach(function(value,key){payload[key]=value;});
+      fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify(payload),headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll reply within a couple of days. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
     });
   })();
 

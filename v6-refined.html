@@ -834,7 +834,7 @@ footer{background:var(--ink);color:var(--cream-72);padding:66px 0 34px}
         <p class="sub" data-reveal>Tell me about your running and your goals — I read every application myself and reply personally with the plan that's right for you. Spots are limited and I can't wait to meet you!</p>
       </div>
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
-      <!-- WIRE: paste your Formspree URL or GHL webhook into FORM_ENDPOINT below. Falls back to a pre-filled email until then. -->
+      <!-- WIRE: paste your /api/lead endpoint into FORM_ENDPOINT below. Falls back to a pre-filled email until then. -->
       <form id="applyForm" novalidate>
         <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
         <div class="form-row">
@@ -971,7 +971,7 @@ footer{background:var(--ink);color:var(--cream-72);padding:66px 0 34px}
 
   /* form */
   (function(){
-    var FORM_ENDPOINT=""; // WIRE: Formspree URL or GHL/Zapier webhook
+    var FORM_ENDPOINT="/api/lead"; // WIRE: Resend-backed Vercel function
     var form=document.getElementById('applyForm');if(!form)return;var statusEl=document.getElementById('formStatus');
     var tape=document.querySelector('.tape');
     function setStatus(m,ok){statusEl.textContent=m;statusEl.className='form-status show '+(ok?'ok':'bad');if(ok&&tape)tape.classList.add('broke');}

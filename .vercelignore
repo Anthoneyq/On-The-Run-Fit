@@ -1,0 +1,11 @@
+.DS_Store
+.git
+.vercel
+.vscode
+*.log
+
+README.md
+review.md
+versions.html
+v1-classic.html
+v6-refined.html

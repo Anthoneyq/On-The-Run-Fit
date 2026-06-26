@@ -2,3 +2,6 @@
 *.log
 Thumbs.db
 .vscode/
+.vercel
+.env*
+review.md

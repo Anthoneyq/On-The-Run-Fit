@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free 5-Minute Pre-Run Mobility Guide | On The Run Fit</title>
+<meta name="description" content="Grab the free 5-Minute Pre-Run Mobility guide from On The Run Fit — six dynamic moves to warm up your hips, ankles, and hamstrings before every run." />
+<link rel="canonical" href="https://ontherunfit.com/mobility.html" />
+<meta property="og:title" content="Free 5-Minute Pre-Run Mobility Guide | On The Run Fit" />
+<meta property="og:description" content="Six dynamic moves to warm up before every run. Free from Lindsey at On The Run Fit." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pages.css" />
+<style>
+  /* Page-local helpers, built on the shared brand tokens in pages.css */
+  .guide-hero .lead { margin-bottom: 1.4rem; }
+  ul.perks { padding: 0; margin: 1.2rem 0 0; list-style: none; }
+  ul.perks li {
+    padding: .55rem 0 .55rem 1.7rem;
+    position: relative;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  ul.perks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.05rem;
+    width: 8px;
+    height: 8px;
+    background: var(--rose);
+    transform: rotate(45deg);
+  }
+  .cover {
+    border: 1px solid var(--rose);
+    padding: 9px;
+    border-radius: 6px;
+    background: var(--cream);
+  }
+  .cover .cover-inner {
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--cream-2), var(--panel));
+    padding: clamp(1.4rem, 4vw, 2.4rem);
+    text-align: center;
+  }
+  .cover .eyebrow { margin-bottom: .4rem; }
+  .cover h2 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: .98;
+    margin: 0 0 .5rem;
+  }
+  .cover .big-time {
+    font: 600 clamp(3rem, 9vw, 5rem)/1 var(--serif);
+    color: var(--rose-deep);
+  }
+  .cover .cover-sub { color: var(--ink-muted); font-size: .85rem; letter-spacing: .04em; }
+  .gate-form { margin-top: .4rem; }
+  .ready {
+    display: none;
+    margin-top: .2rem;
+    padding: clamp(1.3rem, 3vw, 1.9rem);
+    border: 1.5px solid var(--rose);
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--cream-2), var(--panel));
+  }
+  .ready.show { display: block; }
+  .ready h3 { margin: 0 0 .4rem; font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.02; }
+  .ready p { color: var(--ink-soft); margin: 0 0 1.1rem; }
+  .ready .actions { margin-top: 0; }
+  .ready .btn.download { gap: .55rem; }
+  .fine a { color: var(--rose-deep); text-decoration: underline; }
+</style>
+<script>window.OTRF_FORM_ENDPOINT = "/api/lead";</script>
+</head>
+<body>
+<header class="topbar"><div class="wrap nav"><a class="brand" href="index.html">On The Run <span>Fit</span></a><button class="menu" type="button" data-menu aria-expanded="false">Menu</button><nav class="navlinks" data-nav aria-label="Primary"><a href="coaching.html">Coaching</a><a href="programs.html">Programs</a><a href="results.html">Results</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a class="btn" href="apply.html">Apply</a></nav></div></header>
+<main>
+  <section class="hero guide-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Free runner's guide</span>
+        <h1>Warm up in 5 minutes. <em>Run better</em> from step one.</h1>
+        <p class="lead">Six dynamic moves that wake up your hips, ankles, and hamstrings so your first mile
+        stops feeling like a cold start. No floor, no equipment — do it standing by the door. Grab the PDF
+        and it's yours to keep.</p>
+        <ul class="perks">
+          <li>The 6-move routine — with cues, timing, and the mistake to avoid on each.</li>
+          <li>A 30-second "I'm already late" version for the days you're rushing.</li>
+          <li>Why dynamic beats static stretching <em>before</em> you run.</li>
+          <li>Print-ready PDF you can tape to the wall or keep on your phone.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="cover" aria-hidden="true">
+          <div class="cover-inner">
+            <span class="eyebrow">The routine</span>
+            <h2 class="serif">Pre-Run<br>Mobility</h2>
+            <div class="big-time">5:00</div>
+            <div class="cover-sub">6 MOVES · NO EQUIPMENT</div>
+          </div>
+        </div>
+
+        <div class="status" data-status role="status" aria-live="polite" tabindex="-1"></div>
+
+        <!-- GATE FORM -->
+        <form class="gate-form" data-mobility-form novalidate>
+          <div class="hp" aria-hidden="true"><label>Leave empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></div>
+          <div class="field">
+            <label for="first">First name *</label>
+            <input id="first" name="first_name" autocomplete="given-name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <button class="btn" type="submit" style="width:100%">Send Me The Guide</button>
+          <p class="fine" style="margin-top:.9rem">Your guide unlocks on this page the second you hit the button — no waiting on an email.
+          One or two useful running tips a week after. Unsubscribe anytime.</p>
+        </form>
+
+        <!-- INSTANT ON-PAGE FULFILLMENT (revealed after submit) -->
+        <div class="ready" data-ready role="status" aria-live="polite" tabindex="-1">
+          <h3>Your guide is ready 🎉</h3>
+          <p>Download it right here — it's yours to keep.</p>
+          <div class="actions">
+            <a class="btn download" href="downloads/5-min-pre-run-mobility.pdf" download data-download-pdf>⬇ Download the PDF</a>
+            <a class="btn secondary" href="downloads/5-min-pre-run-mobility.html" target="_blank" rel="noopener">View in browser</a>
+          </div>
+          <p class="fine" style="margin-top:1rem">Trouble with the button? <a href="downloads/5-min-pre-run-mobility.pdf" download>Direct download link</a>.
+          Bookmark this page and you can re-download anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">After the warm-up</span>
+        <h2>The warm-up protects your run. A plan makes you faster.</h2>
+        <p>Mobility gets you moving well. The training, pacing, and strength that actually drop your times are
+        what Lindsey coaches. When you're ready, tell her what you're chasing.</p>
+      </div>
+      <div class="actions" style="justify-content:center">
+        <a class="btn" href="apply.html">See if coaching fits</a>
+        <a class="btn secondary" href="coaching.html">Browse coaching options</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="wrap footgrid"><div><a class="brand" href="index.html">On The Run <span>Fit</span></a><p class="fine">Free 5-minute pre-run mobility guide from Lindsey Quebedeaux.</p></div><nav class="footlinks" aria-label="Footer"><a href="coaching.html">Coaching</a><a href="programs.html">Programs</a><a href="results.html">Results</a><a href="privacy.html">Privacy</a><a href="faq.html">FAQ</a></nav></div></footer>
+
+<script src="assets/pages.js"></script>
+<script>
+/* Mobility lead magnet: instant on-page fulfillment.
+   The download is revealed the moment the form validates. The lead POST to
+   /api/lead is best-effort ONLY — if it 503s (Resend not configured), 400s, or
+   the network fails, the visitor still gets the guide. We never promise an email. */
+(function () {
+  "use strict";
+  var form = document.querySelector("[data-mobility-form]");
+  if (!form) return;
+
+  var status = document.querySelector("[data-status]");
+  var ready = document.querySelector("[data-ready]");
+  var endpoint = window.OTRF_FORM_ENDPOINT || "/api/lead";
+  var LEAD_SOURCE = "otrf-mobility-guide";
+
+  function setStatus(message, bad) {
+    if (!status) return;
+    status.textContent = message;
+    status.className = "status show" + (bad ? " bad" : "");
+  }
+
+  function reveal(firstName) {
+    // Hide the form, show the download — instant fulfillment, no inbox involved.
+    form.style.display = "none";
+    if (status) status.className = "status";
+    if (ready) {
+      var h = ready.querySelector("h3");
+      if (h && firstName) h.textContent = "You're all set, " + firstName + " 🎉";
+      ready.classList.add("show");
+      ready.focus && ready.focus();
+      ready.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  function sendLead(payload) {
+    // Fire-and-forget. Swallow every failure (incl. 503 / offline). Never blocks the download.
+    try {
+      fetch(endpoint, {
+        method: "POST",
+        keepalive: true,
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+    } catch (e) { /* ignore */ }
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (form._gotcha && form._gotcha.value) return; // bot
+
+    var first = (form.first_name && form.first_name.value || "").trim();
+    var email = (form.email && form.email.value || "").trim();
+    var emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+
+    form.first_name.setAttribute("aria-invalid", first ? "false" : "true");
+    form.email.setAttribute("aria-invalid", emailOk ? "false" : "true");
+
+    if (!first || !emailOk) {
+      setStatus("Add your first name and a valid email, and the guide unlocks right here.", true);
+      (!first ? form.first_name : form.email).focus();
+      return;
+    }
+
+    // Best-effort lead capture with the source tag. Descriptive defaults keep the
+    // shared /api/lead validation happy if email sending is ever switched on.
+    sendLead({
+      first_name: first,
+      last_name: "(mobility guide)",
+      email: email.toLowerCase(),
+      event: "Free guide download",
+      plan_interest: "mobility",
+      goals: "Downloaded the free 5-Minute Pre-Run Mobility guide.",
+      source: LEAD_SOURCE,
+      _gotcha: ""
+    });
+
+    // Reveal immediately — do not wait on the network.
+    reveal(first);
+  });
+})();
+</script>
+</body>
+</html>

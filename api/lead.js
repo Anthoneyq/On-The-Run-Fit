@@ -50,6 +50,8 @@ function leadText(lead) {
     `Goals: ${lead.goals}`,
     "",
     `Other: ${lead.extra || "(none)"}`,
+    "",
+    `Source: ${lead.source || "(site form)"}`,
   ].join("\n");
 }
 
@@ -61,6 +63,7 @@ function leadHtml(lead) {
     ["Plan", lead.plan_interest],
     ["Goals", lead.goals],
     ["Other", lead.extra || "(none)"],
+    ["Source", lead.source || "(site form)"],
   ];
 
   return `
@@ -114,10 +117,11 @@ module.exports = async function handler(req, res) {
     plan_interest: clean(body.plan_interest),
     goals: clean(body.goals),
     extra: clean(body.extra),
+    source: clean(body.source),
   };
 
   const missing = Object.entries(lead)
-    .filter(([key, value]) => key !== "extra" && !value)
+    .filter(([key, value]) => key !== "extra" && key !== "source" && !value)
     .map(([key]) => key);
 
   if (missing.length || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(lead.email)) {

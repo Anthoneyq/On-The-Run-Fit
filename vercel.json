@@ -2,8 +2,48 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.ontherunfit.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.ontherunfit.com"
+        }
+      ],
       "destination": "https://ontherunfit.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/coaching-plans",
+      "destination": "/coaching",
+      "permanent": true
+    },
+    {
+      "source": "/mylooks",
+      "destination": "/results",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog-1",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog-1/:slug*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug*",
+      "destination": "/",
       "permanent": true
     }
   ],
@@ -11,10 +51,20 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true
 }

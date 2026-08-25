@@ -44,6 +44,7 @@ function leadText(lead) {
   return [
     `Name: ${lead.first_name} ${lead.last_name}`,
     `Email: ${lead.email}`,
+    `Phone: ${lead.phone}`,
     `Event: ${lead.event}`,
     `Plan: ${lead.plan_interest}`,
     "",
@@ -59,6 +60,7 @@ function leadHtml(lead) {
   const rows = [
     ["Name", `${lead.first_name} ${lead.last_name}`],
     ["Email", lead.email],
+    ["Phone", lead.phone],
     ["Event", lead.event],
     ["Plan", lead.plan_interest],
     ["Goals", lead.goals],
@@ -113,6 +115,7 @@ module.exports = async function handler(req, res) {
     first_name: clean(body.first_name),
     last_name: clean(body.last_name),
     email: clean(body.email).toLowerCase(),
+    phone: clean(body.phone),
     event: clean(body.event),
     plan_interest: clean(body.plan_interest),
     goals: clean(body.goals),

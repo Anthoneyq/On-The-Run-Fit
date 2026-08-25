@@ -1065,6 +1065,7 @@ html.lenis,html.lenis body{height:auto}
           <div class="field"><label for="ln">Last Name <span class="req">*</span></label><input id="ln" type="text" name="last_name" required autocomplete="family-name" aria-describedby="ln-err" /><span class="msg" id="ln-err">Please add your last name.</span></div>
         </div>
         <div class="field"><label for="em">Email <span class="req">*</span></label><input id="em" type="email" name="email" required autocomplete="email" aria-describedby="em-err" /><span class="msg" id="em-err">Please add a valid email so I can reply.</span></div>
+        <div class="field"><label for="ph">Phone <span class="req">*</span></label><input id="ph" type="tel" name="phone" required autocomplete="tel" inputmode="tel" aria-describedby="ph-err" placeholder="So I can call you" /><span class="msg" id="ph-err">Please add a phone number so I can call you.</span></div>
         <div class="form-row">
           <div class="field"><label for="ev">What do you run? <span class="req">*</span></label>
             <select id="ev" name="event" required aria-describedby="ev-err"><option value="" disabled selected>Select…</option><option>Sprints</option><option>Middle distance</option><option>Long distance / road races</option><option>Cross country</option><option>New to running / not sure</option></select><span class="msg" id="ev-err">Pick the closest one.</span></div>
@@ -1205,13 +1206,13 @@ html.lenis,html.lenis body{height:auto}
       if(!ok){statusEl.textContent='Just a couple of fields to finish up.';statusEl.className='form-status show bad';if(first)first.focus();return;}
       var data=new FormData(form),btn=form.querySelector('button[type=submit]'),label=btn.innerHTML;btn.disabled=true;btn.textContent='Sending…';
       function email(){var s=encodeURIComponent('Coaching application — '+(data.get('first_name')||'')+' '+(data.get('last_name')||''));
-        var b=encodeURIComponent('Name: '+(data.get('first_name')||'')+' '+(data.get('last_name')||'')+'\nEmail: '+(data.get('email')||'')+'\nWhat I run: '+(data.get('event')||'')+'\nPlan: '+(data.get('plan_interest')||'')+'\n\nGoals: '+(data.get('goals')||'')+'\n\nElse: '+(data.get('extra')||''));
+        var b=encodeURIComponent('Name: '+(data.get('first_name')||'')+' '+(data.get('last_name')||'')+'\nEmail: '+(data.get('email')||'')+'\nPhone: '+(data.get('phone')||'')+'\nWhat I run: '+(data.get('event')||'')+'\nPlan: '+(data.get('plan_interest')||'')+'\n\nGoals: '+(data.get('goals')||'')+'\n\nElse: '+(data.get('extra')||''));
         var murl='mailto:ontherunfit@gmail.com?subject='+s+'&body='+b;
         statusEl.innerHTML='One last tap to finish — <a href="'+murl+'" style="color:var(--rose-deep);text-decoration:underline;font-weight:700">send your application to Lindsey →</a><br><span style="font-weight:500">Or email it to ontherunfit@gmail.com — I read every one myself.</span>';
         statusEl.className='form-status show ok';if(tape)tape.classList.add('broke');btn.disabled=false;btn.innerHTML=label;}
       if(!FORM_ENDPOINT){email();return;}
       var payload={};data.forEach(function(value,key){payload[key]=value;});
-      fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify(payload),headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll reply within a couple of days. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
+      fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify(payload),headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll give you a call soon. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
     });
   })();
 

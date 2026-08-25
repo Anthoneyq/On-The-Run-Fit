@@ -67,6 +67,7 @@
       var body = encodeURIComponent(
         "Name: " + (data.get("first_name") || "") + " " + (data.get("last_name") || "") +
         "\nEmail: " + (data.get("email") || "") +
+        "\nPhone: " + (data.get("phone") || "") +
         "\nPlan: " + (data.get("plan_interest") || "") +
         "\nEvent: " + (data.get("event") || "") +
         "\n\nGoal: " + (data.get("goals") || "") +
@@ -103,7 +104,7 @@
       .then(function (response) {
         if (!response.ok) throw new Error("Form endpoint failed");
         form.reset();
-        setStatus("Got it. Lindsey will reply within a couple of days.", false);
+        setStatus("Got it. Lindsey will give you a call soon.", false);
       })
       .catch(fallback)
       .finally(function () {

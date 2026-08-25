@@ -59,7 +59,7 @@ function leadText(lead) {
 function leadHtml(lead) {
   const rows = [
     ["Name", `${lead.first_name} ${lead.last_name}`],
-    ["Email", lead.email],
+    ["Email", lead.email, `<a href="mailto:${escapeHtml(lead.email)}" style="color:#B22A58">${escapeHtml(lead.email)}</a>`],
     ["Phone", lead.phone],
     ["Event", lead.event],
     ["Plan", lead.plan_interest],
@@ -74,10 +74,10 @@ function leadHtml(lead) {
       <table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:680px">
         ${rows
           .map(
-            ([label, value]) => `
+            ([label, value, html]) => `
               <tr>
                 <th align="left" valign="top" style="border-top:1px solid #ECE0D6;width:140px">${escapeHtml(label)}</th>
-                <td style="border-top:1px solid #ECE0D6">${escapeHtml(value).replace(/\n/g, "<br>")}</td>
+                <td style="border-top:1px solid #ECE0D6">${html || escapeHtml(value).replace(/\n/g, "<br>")}</td>
               </tr>`
           )
           .join("")}
@@ -150,7 +150,6 @@ module.exports = async function handler(req, res) {
     body: JSON.stringify({
       from,
       to,
-      reply_to: lead.email,
       subject: `On The Run Fit application - ${lead.first_name} ${lead.last_name}`,
       text: leadText(lead),
       html: leadHtml(lead),

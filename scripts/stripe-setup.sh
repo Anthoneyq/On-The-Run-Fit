@@ -8,15 +8,26 @@ api(){ curl -s -u "$STRIPE_SECRET_KEY:" "https://api.stripe.com/v1/$1" "${@:2}";
 id(){ python3 -c 'import sys,json;d=json.load(sys.stdin);print(d.get("id") or d)'; }
 url(){ python3 -c 'import sys,json;d=json.load(sys.stdin);print(d.get("url") or d)'; }
 # idempotent: reuse an existing active product with this exact name, else create
-product(){ # name [extra -d args...]
+product(){ # name [extra -d args...] — reuse an existing ACTIVE product with this exact name (list, not search: search index lags)
   local found
-  found=$(api "products/search?query=$(python3 -c 'import sys,urllib.parse;print(urllib.parse.quote("active:\"true\" AND name:\""+sys.argv[1]+"\""))' "$1")" | python3 -c 'import sys,json;d=json.load(sys.stdin).get("data",[]);print(d[0]["id"] if d else "")')
+  found=$(api "products?active=true&limit=100" | python3 -c 'import sys,json;n=sys.argv[1];print(next((p["id"] for p in json.load(sys.stdin).get("data",[]) if p["name"]==n),""))' "$1")
   if [ -n "$found" ]; then echo "$found"; else api products --data-urlencode "name=$1" "${@:2}" | id; fi
+}
+# idempotent: reuse an existing active price on the product with the same amount (+interval), else create
+price(){ # product amount_cents interval("" = one-time) [extra -d args...]
+  local found
+  found=$(api "prices?product=$1&active=true&limit=20" | python3 -c '
+import sys,json;amt=int(sys.argv[1]);iv=sys.argv[2]
+for p in json.load(sys.stdin).get("data",[]):
+    if p["unit_amount"]==amt and ((p.get("recurring") or {}).get("interval") or "")==iv: print(p["id"]);break' "$2" "$3")
+  if [ -n "$found" ]; then echo "$found"; return; fi
+  if [ -n "$3" ]; then api prices -d product="$1" -d unit_amount="$2" -d currency=usd -d "recurring[interval]=$3" "${@:4}" | id
+  else api prices -d product="$1" -d unit_amount="$2" -d currency=usd "${@:4}" | id; fi
 }
 
 echo "== 12-Week 5K Programs (USD 39, one-time)"
 P5K=$(product "12-Week 5K Programs" --data-urlencode "description=Beginner, Intermediate and Advanced 12-week 5K plans + Pace Groups & Terms guide (PDF)" -d "metadata[otrf_product]=5k")
-PR5K=$(api prices -d product="$P5K" -d unit_amount=3900 -d currency=usd -d "metadata[otrf_product]=5k" | id)
+PR5K=$(price "$P5K" 3900 "" -d "metadata[otrf_product]=5k")
 L5K=$(api payment_links -d "line_items[0][price]=$PR5K" -d "line_items[0][quantity]=1" \
   -d "after_completion[type]=redirect" \
   -d "after_completion[redirect][url]=https://ontherunfit.com/thanks-5k?session_id={CHECKOUT_SESSION_ID}" \
@@ -27,8 +38,7 @@ echo "5K payment link:  $L5K"
 mk(){ # name amount_cents interval("" for one-time)
   local pid pr link
   pid=$(product "$1" -d "metadata[otrf_product]=coaching")
-  if [ -n "$3" ]; then pr=$(api prices -d product="$pid" -d unit_amount="$2" -d currency=usd -d "recurring[interval]=$3" | id)
-  else pr=$(api prices -d product="$pid" -d unit_amount="$2" -d currency=usd | id); fi
+  pr=$(price "$pid" "$2" "$3")
   link=$(api payment_links -d "line_items[0][price]=$pr" -d "line_items[0][quantity]=1" -d "after_completion[type]=hosted_confirmation" \
     --data-urlencode "after_completion[hosted_confirmation][custom_message]=You're in! Lindsey will reach out to get your plan started." | url)
   printf "%-32s %s\n" "$1" "$link"

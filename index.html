@@ -321,7 +321,7 @@ header.scrolled{background:rgba(251,246,238,.9);backdrop-filter:blur(10px);box-s
 .plan li{position:relative;padding-left:1.7rem;font-size:.96rem;line-height:1.5}
 .plan li.h{padding-left:0;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-55)}
 .plan li:not(.h)::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;background:var(--rose);transform:rotate(45deg)}
-.plan .btn{margin-top:auto;width:100%;justify-content:center}
+.plan .btn{margin-top:auto;width:100%;justify-content:center}.plan .btn+.btn{margin-top:.6rem}.cta-pair{display:flex;flex-wrap:wrap;gap:.7rem}
 .plan em{font-style:italic;color:var(--rose-text)}
 .minis{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;max-width:900px;margin:clamp(40px,5vh,56px) auto 0}
 .mini{padding-top:1.3rem;border-top:1px solid var(--rose);position:relative}
@@ -832,7 +832,7 @@ html.lenis,html.lenis body{height:auto}
           <p>Do everything I ask — finish your workouts, show up for your calls, check in each week, run the plan as written — and if you're not measurably fitter and faster at your 90-day re-test, it's <em>your money back, or I keep coaching you free until you get there — your call.</em> I can't promise race day; I can promise the work works.</p>
         </div>
       </div>
-      <a href="apply.html?plan=all-in" class="btn btn-primary magnetic">Start the 90-Day Build <span class="arr">→</span></a>
+      <div class="cta-pair"><a href="apply.html?plan=all-in" class="btn btn-primary magnetic" data-checkout="allIn">Start the 90-Day Build — $897 <span class="arr">→</span></a><a href="apply.html?plan=all-in" class="btn btn-ghost magnetic">Apply first <span class="arr">→</span></a></div>
     </div>
 
     <p class="monthly-lead" data-reveal>Prefer to go month to month? Two ways to get coached — no contract, cancel anytime.</p>
@@ -853,7 +853,7 @@ html.lenis,html.lenis body{height:auto}
           <li>My Mobility Program included <em>(a $67 value)</em></li>
           <li>On The Run Recipes included</li>
         </ul>
-        <a href="apply.html?plan=coached" class="btn btn-ghost magnetic">Start with Coached <span class="arr">→</span></a>
+        <a href="apply.html?plan=coached" class="btn btn-primary magnetic" data-checkout="coached">Start Coached — $149/mo <span class="arr">→</span></a><a href="apply.html?plan=coached" class="btn btn-ghost magnetic">Apply first <span class="arr">→</span></a>
       </div>
       <div class="plan feat" data-reveal>
         <span class="badge">Everything, every week</span>
@@ -870,15 +870,15 @@ html.lenis,html.lenis body{height:auto}
           <li>Nutrition guidance built around your training</li>
           <li>First priority on my schedule</li>
         </ul>
-        <a href="apply.html?plan=race-ready" class="btn btn-primary magnetic">Go Race Ready <span class="arr">→</span></a>
+        <a href="apply.html?plan=race-ready" class="btn btn-primary magnetic" data-checkout="raceReady">Go Race Ready — $279/mo <span class="arr">→</span></a><a href="apply.html?plan=race-ready" class="btn btn-ghost magnetic">Apply first <span class="arr">→</span></a>
       </div>
     </div>
     <div class="minis">
       <div class="mini" data-reveal><h4>Strength &amp; Conditioning</h4><div class="p tab">$67<small>/mo</small></div><p>A standalone strength plan that builds real power and keeps you durable — pairs with any running.</p></div>
-      <div class="mini" data-reveal><h4>In-Person Coaching</h4><div class="lbl">Local · New Braunfels, TX</div><div class="p tab">$547<small>/mo</small></div><p>My highest-touch level — we train together in person. Daily-updated plans, unlimited text &amp; email, and hands-on form work most coaches charge per session for. <a href="apply.html?plan=in-person">Local? Ask about cash or Venmo →</a></p></div>
-      <div class="mini" data-reveal><h4>Teams &amp; Schools</h4><div class="lbl">XC / Track season</div><div class="p tab">$1,197<small>/season</small></div><p>A 2–3 hr video session to program your whole season, plus tools and email all season. <a href="apply.html?plan=teams">Inquire →</a></p></div>
+      <div class="mini" data-reveal><h4>In-Person Coaching</h4><div class="lbl">Local · New Braunfels, TX</div><div class="p tab">$547<small>/mo</small></div><p>My highest-touch level — we train together in person. Daily-updated plans, unlimited text &amp; email, and hands-on form work most coaches charge per session for. <a href="apply.html?plan=in-person" data-checkout="inPerson">Start In-Person →</a> · <a href="apply.html?plan=in-person">Ask first →</a></p></div>
+      <div class="mini" data-reveal><h4>Teams &amp; Schools</h4><div class="lbl">XC / Track season</div><div class="p tab">$1,197<small>/season</small></div><p>A 2–3 hr video session to program your whole season, plus tools and email all season. <a href="apply.html?plan=teams" data-checkout="teams">Book the season →</a> · <a href="apply.html?plan=teams">Inquire →</a></p></div>
     </div>
-    <p class="plans-note" data-reveal>Coached and Race Ready are month to month — no contract, cancel anytime. All-In is a 90-day commitment, backed by my results promise. Still deciding? Apply and I'll help you choose the right fit.</p>
+    <p class="plans-note" data-reveal>Coached and Race Ready are month to month — no contract, cancel anytime. All-In is a 90-day commitment, backed by my results promise. Ready now? Start any plan directly and I'll reach out to kick things off. Still deciding? Apply and I'll help you choose the right fit.</p>
   </div>
 </section>
 

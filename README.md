@@ -68,7 +68,7 @@ Each fits its own tone; if you add a version, give it its own line too.
 - **Real copy in Lindsey's voice.** Testimonials are REAL named athletes (Katie = Boston
   qualifier 3:12:01; Rebecca = first half; Mary = first 8K; Kim = triathlon; John = comeback) on
   their real photos — never invent quotes or use "Sample Athlete."
-- **Real plans/prices.** Premium $149 · Pro+ $279 · Strength $70 · In-Person $400 · XC $1,198/season.
+- **Real plans/prices (Lindsey, 2026-08-26).** Online Coaching $120/mo · In-Person $450/mo · Strength add-on +$50/mo · Teams & Schools $1,197/season · 5K plans $39.
 - **Graceful funnel.** The homepage and apply page post to `/api/lead`. Until `RESEND_API_KEY`
   is live in Vercel, failed submissions fall back to a pre-filled email to `ontherunfit@gmail.com`
   instead of a dead end.

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>New Client Onboarding | On The Run Fit</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pages.css" />
+<style>
+.ob fieldset{border:0;padding:0;margin:0 0 2.2rem}
+.ob legend{font:600 1.7rem/1.1 var(--serif);color:var(--ink);margin-bottom:.2rem;padding:0}
+.ob .hint{color:var(--ink-muted);font-size:.92rem;margin:.1rem 0 1rem}
+.ob label{display:block;font-weight:600;margin:1rem 0 .35rem}
+.ob label small{display:block;font-weight:400;color:var(--ink-muted)}
+.ob input,.ob textarea,.ob select{width:100%;font:inherit;padding:.75rem .9rem;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)}
+.ob textarea{min-height:96px;resize:vertical}
+.ob input:focus,.ob textarea:focus,.ob select:focus{outline:2px solid rgba(210,59,110,.35);border-color:var(--rose)}
+.ob .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.ob .two{grid-template-columns:1fr}}
+.ob [aria-invalid="true"]{border-color:#b23b30}
+.ob .status{margin-bottom:1rem}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap nav"><a class="brand" href="index.html">On The Run <span>Fit</span></a><button class="menu" type="button" data-menu aria-expanded="false">Menu</button><nav class="navlinks" data-nav aria-label="Primary"><a href="coaching.html">Coaching</a><a href="programs.html">Programs</a><a href="results.html">Results</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a class="btn" href="apply.html">Apply</a></nav></div></header>
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">New client onboarding</span>
+        <h1>Tell Lindsey about <em>you.</em></h1>
+        <p class="lead">This is how your plan gets built around your real life, not a template. It takes about 5–8 minutes. Short, honest answers are perfect — Lindsey will fill in the rest on your call.</p>
+      </div>
+      <div class="panel">
+        <h2 class="serif" style="font-size:2.2rem;line-height:1;margin-top:0">Why so many questions?</h2>
+        <p>Your goal, your history, your schedule, and your body decide what the first weeks look like. The more Lindsey knows now, the faster your plan lands — and the safer it is.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="panel ob">
+        <div class="status" data-status role="status" aria-live="polite" tabindex="-1"></div>
+        <form data-onboarding-form novalidate>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+          <input type="hidden" name="plan" />
+
+          <fieldset>
+            <legend>About you</legend>
+            <div class="two">
+              <div><label for="name">Full name (first and last) *</label><input id="name" name="name" required autocomplete="name" /></div>
+              <div><label for="age">Age *</label><input id="age" name="age" required inputmode="numeric" /></div>
+            </div>
+            <div class="two">
+              <div><label for="email">Email *<small>The one you used at checkout, if you can.</small></label><input id="email" name="email" type="email" required autocomplete="email" /></div>
+              <div><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" required autocomplete="tel" /></div>
+            </div>
+            <label for="contact_pref">Best way and time to reach you<small>Text, call, or email — and when you're usually free.</small></label><input id="contact_pref" name="contact_pref" />
+          </fieldset>
+
+          <fieldset>
+            <legend>Your goals</legend>
+            <label for="goals">What are your goals? *<small>Big or small. A time, a distance, a comeback, feeling strong again — all of it counts.</small></label><textarea id="goals" name="goals" required></textarea>
+            <label for="goal_race">The race that matters most — and its date<small>If you have one. Name, distance, date.</small></label><input id="goal_race" name="goal_race" />
+            <label for="schedule">Your racing schedule this year<small>Briefly — around what month your season starts, and any other races on the calendar.</small></label><textarea id="schedule" name="schedule"></textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Current training</legend>
+            <label for="days_per_week">How many days a week are you running right now? *</label><input id="days_per_week" name="days_per_week" required />
+            <label for="current_week">What does a typical week look like right now? *<small>Roughly — days, distances, any workouts. "Mon 3 easy, Wed 4, Sat 6 long" is plenty.</small></label><textarea id="current_week" name="current_week" required></textarea>
+            <label for="season_week">If you race a season (XC / track), what did an in-season week look like?<small>Skip if that's not you.</small></label><textarea id="season_week" name="season_week"></textarea>
+            <label for="strength">Are you doing any strength or mobility work now?<small>What, and how often.</small></label><input id="strength" name="strength" />
+            <label for="time_available">How much time can you give a run on a weekday, and on your long-run day?<small>e.g. "45 min weekdays, up to 2 hours Saturday"</small></label><input id="time_available" name="time_available" />
+          </fieldset>
+
+          <fieldset>
+            <legend>History &amp; fitness</legend>
+            <label for="years_running">How long have you been running? *</label><input id="years_running" name="years_running" required />
+            <label for="comfortable">How many miles could you comfortably run right now, and at about what pace? *</label><input id="comfortable" name="comfortable" required />
+            <label for="longest_run">How far is your longest recent run? *</label><input id="longest_run" name="longest_run" required />
+            <label for="race_times">Current race times / PRs<small>Distance, time, and roughly when. Recent matters more than all-time.</small></label><textarea id="race_times" name="race_times"></textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Injuries &amp; health</legend>
+            <label for="injuries">Any current or previous injuries? *<small>What, when, and whether it still bugs you. "None" is a fine answer.</small></label><textarea id="injuries" name="injuries" required></textarea>
+            <label for="medical">Anything medical Lindsey should know? *<small>Conditions, medications, or anything a doctor has told you about exercise. "Nothing" is a fine answer.</small></label><textarea id="medical" name="medical" required></textarea>
+          </fieldset>
+
+          <fieldset>
+            <legend>Logistics</legend>
+            <label for="best_days">Which days of the week are best to run — and is there a day you definitely want off? *</label><input id="best_days" name="best_days" required />
+            <label for="track">Do you have access to a track, and what's your experience with speed work? *</label><input id="track" name="track" required />
+            <label for="tracking">How do you track your runs? *<small>Garmin, Apple Watch, Strava, a phone app…</small></label><input id="tracking" name="tracking" required />
+            <label for="extra">Anything else you want Lindsey to know?</label><textarea id="extra" name="extra"></textarea>
+          </fieldset>
+
+          <button class="btn" type="submit">Send to Lindsey</button>
+          <p class="fine">Trouble sending? Email your answers to <a href="mailto:ontherunfit@gmail.com">ontherunfit@gmail.com</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="wrap footgrid"><div><a class="brand" href="index.html">On The Run <span>Fit</span></a><p class="fine">1-on-1 running coaching in New Braunfels, TX and online nationwide.</p></div><nav class="footlinks" aria-label="Footer"><a href="coaching.html">Coaching</a><a href="programs.html">Programs</a><a href="results.html">Results</a><a href="privacy.html">Privacy</a><a href="faq.html">FAQ</a></nav></div></footer>
+<script src="assets/success-modal.js"></script>
+<script src="assets/pages.js"></script>
+<script>
+(function(){
+  var form=document.querySelector("[data-onboarding-form]"),status=document.querySelector("[data-status]");
+  var plan=new URLSearchParams(location.search).get("plan"); if(plan) form.plan.value=plan;
+  function setStatus(m,bad){status.innerHTML=m;status.className="status show"+(bad?" bad":"");status.focus&&status.focus();}
+  form.addEventListener("submit",function(e){
+    e.preventDefault(); if(form._gotcha.value) return;
+    var first=null;
+    form.querySelectorAll("[required]").forEach(function(f){var bad=!f.value.trim()||(f.type==="email"&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value));f.setAttribute("aria-invalid",bad?"true":"false");if(bad&&!first)first=f;});
+    if(first){setStatus("A few required answers are still blank — they're marked in red.",true);first.focus();return;}
+    var btn=form.querySelector("button[type=submit]"),label=btn.textContent;btn.disabled=true;btn.textContent="Sending…";
+    var payload={};new FormData(form).forEach(function(v,k){payload[k]=v;});
+    function fallback(){
+      var body=encodeURIComponent(Object.keys(payload).filter(function(k){return k!=="_gotcha"&&payload[k];}).map(function(k){return k.replace(/_/g," ")+": "+payload[k];}).join("\n\n"));
+      setStatus('One last tap: <a href="mailto:ontherunfit@gmail.com?subject='+encodeURIComponent("Onboarding — "+(payload.name||""))+'&body='+body+'" style="color:#9e2450;font-weight:800;text-decoration:underline">send your answers to Lindsey</a>.',false);
+      btn.disabled=false;btn.textContent=label;
+    }
+    fetch("/api/onboarding",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)})
+      .then(function(r){if(!r.ok)throw 0;form.reset();setStatus("Got it! Lindsey has your answers.",false);if(window.OTRF_showModal)window.OTRF_showModal("Got it! Lindsey has your answers.","She'll read every word before your call. Keep an eye on your phone.");})
+      .catch(fallback).finally(function(){btn.disabled=false;btn.textContent=label;});
+  });
+})();
+</script>
+</body>
+</html>

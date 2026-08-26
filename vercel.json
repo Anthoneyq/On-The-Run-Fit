@@ -66,5 +66,10 @@
       ]
     }
   ],
-  "cleanUrls": true
+  "cleanUrls": true,
+  "functions": {
+    "api/download.js": {
+      "includeFiles": "api/_products/**"
+    }
+  }
 }

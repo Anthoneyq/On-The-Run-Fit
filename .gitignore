@@ -5,3 +5,4 @@ Thumbs.db
 .vercel
 .env*
 review.md
+scripts/__pycache__/

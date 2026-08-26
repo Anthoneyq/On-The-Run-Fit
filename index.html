@@ -1177,7 +1177,7 @@ html.lenis,html.lenis body{height:auto}
         statusEl.className='form-status show ok';if(tape)tape.classList.add('broke');btn.disabled=false;btn.innerHTML=label;}
       if(!FORM_ENDPOINT){email();return;}
       var payload={};data.forEach(function(value,key){payload[key]=value;});
-      fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify(payload),headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! I'll give you a call soon. Can't wait to meet you.",true);}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
+      fetch(FORM_ENDPOINT,{method:'POST',body:JSON.stringify(payload),headers:{'Accept':'application/json','Content-Type':'application/json'}}).then(function(r){if(r.ok){form.reset();setStatus("Got it! Lindsey will be in touch soon!",true);if(window.OTRF_showModal)window.OTRF_showModal("Got it! Lindsey will be in touch soon!","Thanks for applying. Keep an eye on your phone — she'll give you a call to talk through the plan that fits.");}else throw 0;}).catch(email).finally(function(){btn.disabled=false;btn.innerHTML=label;});
     });
   })();
 
@@ -1203,6 +1203,7 @@ html.lenis,html.lenis body{height:auto}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="assets/success-modal.js"></script>
 <script>
 (function(){
   "use strict";

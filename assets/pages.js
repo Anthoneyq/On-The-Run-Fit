@@ -104,7 +104,8 @@
       .then(function (response) {
         if (!response.ok) throw new Error("Form endpoint failed");
         form.reset();
-        setStatus("Got it. Lindsey will give you a call soon.", false);
+        setStatus("Got it! Lindsey will be in touch soon!", false);
+        if (window.OTRF_showModal) window.OTRF_showModal("Got it! Lindsey will be in touch soon!", "Thanks for applying. Keep an eye on your phone \u2014 she'll give you a call to talk through the plan that fits.");
       })
       .catch(fallback)
       .finally(function () {
